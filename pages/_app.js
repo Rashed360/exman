@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import '../styles/globals.css'
+import '../styles/index.css'
 
 function Index({ Component, pageProps }) {
 	return (

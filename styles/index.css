@@ -1,0 +1,64 @@
+.home {
+	padding: 0 20px;
+}
+.cards {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.card {
+	padding: 10px 15px;
+	border-radius: 15px;
+}
+.card .card__title {
+	font-size: 24px;
+}
+.card.activity {
+	padding: 15px 20px;
+	display: flex;
+	gap: 15px;
+	justify-content: space-between;
+}
+.card__desc {
+}
+.card h1 {
+	text-align: right;
+}
+.card h1.card__amount {
+	margin-top: -5px;
+}
+.card--positive {
+	background: var(--accent);
+}
+.card--negative {
+	background: #eda5a5;
+}
+.card--nutral {
+	background: #6fb1ff;
+}
+.card--positive_line {
+	border: 1px solid var(--accent);
+}
+.card--negative_line {
+	border: 1px solid #eda5a5;
+}
+.card--nutral_line {
+	border: 1px solid #6fb1ff;
+}
+.activity.card--positive_line h1 {
+	color: var(--accent);
+}
+.activity.card--negative_line h1 {
+	color: #eda5a5;
+}
+.activity.card--nutral_line h1 {
+	color: #6fb1ff;
+}
+
+.section {
+	padding-bottom: 20px;
+}
+.section__title {
+	padding: 20px 0;
+	font-size: 16px;
+}
