@@ -83,6 +83,7 @@
 
 .navItem {
 	cursor: pointer;
+	user-select: none;
 	padding: 15px 80px;
 	background-color: transparent;
 }

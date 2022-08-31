@@ -1,5 +1,5 @@
 import style from '../styles/Navbar.module.css'
-import Logo from '../public/logo.svg'
+import Logo from '../assets/logo.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -21,7 +21,7 @@ const Navbar = () => {
 			</div>
 			{sidebar && (
 				<div className={style.overlay} onClick={sidebarToggler}>
-					<div className={style.sidebar}>
+					<div className={style.sidebar} onClick={e => e.stopPropagation()}>
 						<div className={style.sidebarHeader}>
 							<div>
 								<Image src={Logo} className={style.logoImage} width={35} height={17} alt='logo' />
@@ -60,7 +60,7 @@ const Navbar = () => {
 										<span>Add Expense</span>
 									</div>
 								</Link>
-								<Link href='/404'>
+								<Link href='/join'>
 									<div className={style.navItem}>
 										<VscSignOut />
 										<span>Logout</span>
