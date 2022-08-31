@@ -5,7 +5,7 @@ const Home = () => {
 	return (
 		<Layout>
 			<Navbar />
-			<div className='home'>
+			<div className='container'>
 				<div className='cards'>
 					<div className='card card--positive'>
 						<p className='card__title'>Added</p>

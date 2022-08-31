@@ -53,7 +53,7 @@ body {
 	justify-content: center;
 }
 
-.container {
+.window {
 	position: relative;
 	background-color: var(--shade4);
 	width: 22.5em;
@@ -63,7 +63,7 @@ body {
 	-ms-overflow-style: none;
 	scrollbar-width: none;
 }
-.container::-webkit-scrollbar {
+.window::-webkit-scrollbar {
 	display: none;
 }
 

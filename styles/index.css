@@ -1,10 +1,11 @@
-.home {
+.container {
 	padding: 0 20px;
 }
 .cards {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
+	padding-bottom: 20px;
 }
 .card {
 	padding: 10px 15px;
@@ -59,6 +60,18 @@
 	padding-bottom: 20px;
 }
 .section__title {
-	padding: 20px 0;
+	padding-bottom: 20px;
 	font-size: 16px;
+}
+
+.notFound {
+	height: 80vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+.notFound .info svg {
+	width: 10vh;
+	height: 10vh;
 }
