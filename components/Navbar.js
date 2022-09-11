@@ -1,5 +1,5 @@
 import style from '../styles/Navbar.module.css'
-import Logo from '../assets/logo.svg'
+import Logo from '../assets/Logo'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -12,7 +12,7 @@ const Navbar = () => {
 		<>
 			<div className={style.navbar}>
 				<div>
-					<Image src={Logo} className={style.logoImage} width={35} height={17} alt='logo' />
+					<Logo className={style.logoImage} />
 					<span className={style.logoText}>Ex man</span>
 				</div>
 				<div className={style.toggleButton} onClick={sidebarToggler}>
@@ -24,7 +24,7 @@ const Navbar = () => {
 					<div className={style.sidebar} onClick={e => e.stopPropagation()}>
 						<div className={style.sidebarHeader}>
 							<div>
-								<Image src={Logo} className={style.logoImage} width={35} height={17} alt='logo' />
+								<Logo className={style.logoImage} />
 								<span className={style.logoText}>Ex man</span>
 							</div>
 							<div className={style.toggleButton} onClick={sidebarToggler}>

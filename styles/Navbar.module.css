@@ -8,9 +8,6 @@
 .logoImage {
 	-webkit-user-drag: none;
 }
-.logoImage svg {
-	fill: var(--accent);
-}
 .logoText {
 	margin-left: 0.4em;
 	text-transform: uppercase;
