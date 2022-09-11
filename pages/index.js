@@ -1,10 +1,10 @@
 import Layout from '../components/Layout'
 import Navbar from '../components/Navbar'
 
-const Home = () => {
+const Home = ({ mode, toggleMode }) => {
 	return (
-		<Layout>
-			<Navbar />
+		<Layout mode={mode}>
+			<Navbar toggleMode={toggleMode} />
 			<div className='container'>
 				<div className='cards'>
 					<div className='card card--positive'>

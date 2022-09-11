@@ -103,6 +103,7 @@
 	padding: 10px 0;
 }
 .formControl label {
+	color: var(--shade0);
 	display: block;
 	margin-left: 5px;
 	margin-bottom: 10px;
@@ -130,7 +131,7 @@
 	padding: 10px 20px;
 
 	background: var(--accent);
-	border: 1px solid var(--shade1);
+	border: 1px solid var(--shade4);
 	border-radius: 10px;
 	font-family: 'Poppins';
 
