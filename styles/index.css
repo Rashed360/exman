@@ -32,28 +32,28 @@
 	background: var(--accent);
 }
 .card--negative {
-	background: #eda5a5;
+	background: var(--danger);
 }
 .card--nutral {
-	background: #6fb1ff;
+	background: var(--normal);
 }
 .card--positive_line {
 	border: 1px solid var(--accent);
 }
 .card--negative_line {
-	border: 1px solid #eda5a5;
+	border: 1px solid var(--danger);
 }
 .card--nutral_line {
-	border: 1px solid #6fb1ff;
+	border: 1px solid var(--normal);
 }
 .activity.card--positive_line h1 {
 	color: var(--accent);
 }
 .activity.card--negative_line h1 {
-	color: #eda5a5;
+	color: var(--danger);
 }
 .activity.card--nutral_line h1 {
-	color: #6fb1ff;
+	color: var(--normal);
 }
 
 .section {
@@ -111,15 +111,16 @@
 	width: 100%;
 	padding: 10px 20px;
 
-	background: #2d2e32;
-	border: 1px solid #919199;
+	background: var(--shade4);
+	border: 1px solid var(--shade1);
 	border-radius: 10px;
 
 	font-family: 'Poppins';
 	font-style: normal;
 	font-weight: 400;
 	font-size: 16px;
-	color: #f2f2f2;
+	/* color: #f2f2f2; */
+	color: var(--shade2);
 }
 .formControl button {
 	cursor: pointer;
@@ -128,14 +129,14 @@
 	width: 100%;
 	padding: 10px 20px;
 
-	background: #64f4ac;
-	border: 1px solid #919199;
+	background: var(--accent);
+	border: 1px solid var(--shade1);
 	border-radius: 10px;
 	font-family: 'Poppins';
 
 	font-weight: 500;
 	font-size: 16px;
-	color: #25262a;
+	color: var(--shade5);
 }
 .formControl button:hover {
 	filter: brightness(1.125);
@@ -159,7 +160,7 @@
 	padding-left: 30px;
 	font-weight: 400;
 	font-size: 12px;
-	color: #919199;
+	color: var(--shade1);
 }
 .formControl.okay input {
 	border-color: var(--accent);
@@ -168,10 +169,10 @@
 	color: var(--accent);
 }
 .formControl.error input {
-	border-color: #eda5a5;
+	border-color: var(--danger);
 }
 .formControl.error ul {
-	color: #eda5a5;
+	color: var(--danger);
 }
 
 .notFound {

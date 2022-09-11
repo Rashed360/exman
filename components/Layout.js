@@ -1,5 +1,8 @@
+import { useColorMode } from '../hooks/useColorMode'
+
 const Layout = ({ children }) => {
-	return <div className='window'>{children}</div>
+	const [lightMode] = useColorMode()
+	return <div className={`window${lightMode ? ' lightMode' : ''}`}>{children}</div>
 }
 
 export default Layout

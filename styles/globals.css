@@ -24,27 +24,28 @@ h6,
 p {
 	padding: 0;
 	margin: 0;
+	color: var(--shade0);
 }
 
 abbr,
 a {
 	color: inherit;
 	text-decoration: none;
+	color: var(--shade0);
 }
 
-:root,
-:root.light {
+:root {
 	--shade0: #fcfcfc;
 	--shade1: #919199;
 	--shade2: #656565;
 	--shade3: #333438;
 	--shade4: #2d2e32;
 	--shade5: #25262a;
-}
-:root {
 	--accent: #64f4ac;
+	--danger: #eda5a5;
+	--normal: #6fb1ff;
 }
-:root.dark {
+.lightMode {
 	--shade0: #25262a;
 	--shade1: #656565;
 	--shade2: #919199;
@@ -70,14 +71,4 @@ body {
 }
 .window::-webkit-scrollbar {
 	display: none;
-}
-
-@media (prefers-color-scheme: dark) {
-	html {
-		color-scheme: dark;
-	}
-	body {
-		color: var(--shade0);
-		background: var(--shade5);
-	}
 }
