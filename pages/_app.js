@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import '../styles/globals.css'
 import '../styles/index.css'
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function Index({ Component, pageProps }) {
 	const [lightMode, setLightMode] = useState(false)
@@ -15,8 +15,10 @@ function Index({ Component, pageProps }) {
 		const mode = localStorage.getItem('lightMode')
 		if (mode === 'true') {
 			setLightMode(true)
+			document.body.className = 'lightMode'
 		} else {
 			setLightMode(false)
+			document.body.className = ''
 		}
 	}, [lightMode])
 

@@ -1,5 +1,5 @@
-const Layout = ({ mode, children }) => {
-	return <div className={`window${mode ? ' lightMode' : ''}`}>{children}</div>
+const Layout = ({ children }) => {
+	return <div className='window'>{children}</div>
 }
 
 export default Layout
