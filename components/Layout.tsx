@@ -1,6 +1,10 @@
-import React from 'react'
+import { FunctionComponent } from 'react'
 
-const Layout = ({ children }) => {
+type Props = {
+	children: string
+}
+
+const Layout: FunctionComponent<Props> = ({ children }) => {
 	return <div className='window'>{children}</div>
 }
 

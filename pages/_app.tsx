@@ -9,7 +9,7 @@ function Index({ Component, pageProps }: AppProps) {
 
 	const toggleLightMode = () => {
 		setLightMode(!lightMode)
-		// localStorage.setItem('lightMode', !lightMode)
+		localStorage.setItem('lightMode', JSON.stringify(!lightMode))
 	}
 
 	useEffect(() => {
