@@ -1,3 +1,4 @@
+import React from 'react'
 import style from '../styles/Navbar.module.css'
 import Logo from '../assets/Logo'
 import Image from 'next/image'
@@ -5,7 +6,11 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { VscThreeBars, VscPreview, VscDiffAdded, VscDiffRemoved, VscSignOut } from 'react-icons/vsc'
 
-const Navbar = ({ toggleMode }) => {
+export interface Props {
+	toggleMode: string
+}
+
+const Navbar = ({ toggleMode }: Props) => {
 	const [sidebar, setSidebar] = useState(false)
 	const sidebarToggler = () => setSidebar(!sidebar)
 	return (

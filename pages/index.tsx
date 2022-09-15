@@ -1,7 +1,8 @@
+import type { NextPage } from 'next'
 import Layout from '../components/Layout'
 import Navbar from '../components/Navbar'
 
-const Home = ({ mode, toggleMode }) => {
+const Home: NextPage = ({ mode, toggleMode }) => {
 	return (
 		<Layout mode={mode}>
 			<Navbar toggleMode={toggleMode} />
