@@ -1,10 +1,6 @@
 import { FunctionComponent } from 'react'
 
-type Props = {
-	children: string
-}
-
-const Layout: FunctionComponent<Props> = ({ children }) => {
+const Layout = ({ children }) => {
 	return <div className='window'>{children}</div>
 }
 

@@ -2,10 +2,9 @@ import Head from 'next/head'
 import '../styles/globals.css'
 import '../styles/index.css'
 import { useState, useEffect } from 'react'
-import type { AppProps } from 'next/app'
 
-function Index({ Component, pageProps }: AppProps) {
-	const [lightMode, setLightMode] = useState<Boolean>(false)
+function Index({ Component, pageProps }) {
+	const [lightMode, setLightMode] = useState(false)
 
 	const toggleLightMode = () => {
 		setLightMode(!lightMode)

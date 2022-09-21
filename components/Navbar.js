@@ -5,11 +5,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { VscThreeBars, VscPreview, VscDiffAdded, VscDiffRemoved, VscSignOut } from 'react-icons/vsc'
 
-type Props = {
-	toggleMode: string
-}
-
-const Navbar = ({ toggleMode }: Props) => {
+const Navbar = ({ toggleMode }) => {
 	const [sidebar, setSidebar] = useState(false)
 	const sidebarToggler = () => setSidebar(!sidebar)
 	return (
