@@ -81,11 +81,10 @@
 	font-size: 12px;
 	color: var(--shade1);
 }
-
 .navItem {
 	cursor: pointer;
 	user-select: none;
-	padding: 15px 80px;
+	padding: 15px 53px;
 	background-color: transparent;
 }
 .navItem:hover {

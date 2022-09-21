@@ -55,6 +55,30 @@ const Navbar = () => {
 									icon={<VscDiffRemoved />}
 									toggle={sidebarToggler}
 								/>
+								<NavItem
+									name='Shared Expense'
+									link='/shared'
+									icon={<VscDiffRemoved />}
+									toggle={sidebarToggler}
+								/>
+								<NavItem
+									name='Plan Expense'
+									link='/plan'
+									icon={<VscDiffRemoved />}
+									toggle={sidebarToggler}
+								/>
+								<NavItem
+									name='Statistics'
+									link='/statistics'
+									icon={<VscDiffRemoved />}
+									toggle={sidebarToggler}
+								/>
+								<NavItem
+									name='Generate Reports'
+									link='/reports'
+									icon={<VscDiffRemoved />}
+									toggle={sidebarToggler}
+								/>
 								<NavItem name='Logout' link='/join' icon={<VscSignOut />} toggle={sidebarToggler} />
 							</div>
 						</div>
