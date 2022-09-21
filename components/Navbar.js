@@ -2,10 +2,13 @@ import style from '../styles/Navbar.module.css'
 import Logo from '../assets/Logo'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useContext } from 'react'
+import { ThemeContext } from '../utils/ThemeContext'
 import { useState } from 'react'
 import { VscThreeBars, VscPreview, VscDiffAdded, VscDiffRemoved, VscSignOut } from 'react-icons/vsc'
 
-const Navbar = ({ toggleMode }) => {
+const Navbar = () => {
+	const { toggleLightMode } = useContext(ThemeContext)
 	const [sidebar, setSidebar] = useState(false)
 	const sidebarToggler = () => setSidebar(!sidebar)
 	return (
@@ -33,7 +36,7 @@ const Navbar = ({ toggleMode }) => {
 						</div>
 						<div className={style.section}>
 							<div className={style.profile}>
-								<div className={style.avatar} onClick={toggleMode}>
+								<div className={style.avatar} onClick={toggleLightMode}>
 									{false && <Image src='' layout='fill' alt='avatar' />}
 								</div>
 								<div className={style.info}>
