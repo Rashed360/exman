@@ -10,6 +10,7 @@
 .card {
 	padding: 10px 15px;
 	border-radius: 15px;
+	background: var(--shade5);
 }
 .card .card__title {
 	font-size: 24px;
@@ -19,6 +20,7 @@
 	display: flex;
 	gap: 15px;
 	justify-content: space-between;
+	border: 1px solid var(--shade2);
 }
 .card__desc {
 }
@@ -37,13 +39,13 @@
 .card--nutral {
 	background: var(--normal);
 }
-.card--positive_line {
+.activity.card--positive_line {
 	border: 1px solid var(--accent);
 }
-.card--negative_line {
+.activity.card--negative_line {
 	border: 1px solid var(--danger);
 }
-.card--nutral_line {
+.activity.card--nutral_line {
 	border: 1px solid var(--normal);
 }
 .activity.card--positive_line h1 {
