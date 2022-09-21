@@ -1,16 +1,16 @@
 import Layout from '../components/Layout'
 import Navbar from '../components/Navbar'
 
-const AddMoney = () => {
+const AddExpense = () => {
 	return (
 		<Layout>
-			<Navbar />
+			<Navbar toggleMode='' />
 			<div className='container'>
 				<div className='section'>
-					<p className='section__title'>Add Money</p>
+					<p className='section__title'>Add Expense</p>
 				</div>
 			</div>
 		</Layout>
 	)
 }
-export default AddMoney
+export default AddExpense

@@ -57,6 +57,7 @@ body {
 	display: flex;
 	justify-content: center;
 	-webkit-tap-highlight-color: transparent;
+	background-color: var(--shade5);
 }
 
 .window {

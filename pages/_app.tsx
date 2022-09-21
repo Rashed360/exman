@@ -1,22 +1,25 @@
 import Head from 'next/head'
 import '../styles/globals.css'
 import '../styles/index.css'
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
+import type { AppProps } from 'next/app'
 
-function Index({ Component, pageProps }) {
-	const [lightMode, setLightMode] = useState(false)
+function Index({ Component, pageProps }: AppProps) {
+	const [lightMode, setLightMode] = useState<Boolean>(false)
 
 	const toggleLightMode = () => {
 		setLightMode(!lightMode)
-		localStorage.setItem('lightMode', !lightMode)
+		localStorage.setItem('lightMode', JSON.stringify(!lightMode))
 	}
 
 	useEffect(() => {
 		const mode = localStorage.getItem('lightMode')
 		if (mode === 'true') {
 			setLightMode(true)
+			document.body.className = 'lightMode'
 		} else {
 			setLightMode(false)
+			document.body.className = ''
 		}
 	}, [lightMode])
 

@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar'
 const JoinUs = () => {
 	return (
 		<Layout>
-			<Navbar />
+			<Navbar toggleMode='' />
 			<div className='container'>
 				<div className='section'>
 					<p className='section__title'>Login or create an account</p>
