@@ -60,7 +60,7 @@ const AddMoney = () => {
 									<div className='display_image'>
 										<div className='image_box'>
 											<div className='image'>
-												<img src='' alt='' />
+												{/* <img src='' alt='' /> */}
 											</div>
 											<div className='text_group'>
 												<p>20220920_18426.jpg</p>
@@ -74,7 +74,7 @@ const AddMoney = () => {
 									<div className='display_image'>
 										<div className='image_box'>
 											<div className='image'>
-												<img src='' alt='' />
+												{/* <img src='' alt='' /> */}
 											</div>
 											<div className='text_group'>
 												<p>20220920_18427.jpg</p>
