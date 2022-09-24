@@ -15,25 +15,33 @@ export const authOptions = {
 	// },
 	// Configure one or more authentication providers
 	adapter: PrismaAdapter(prisma),
+	session: {
+		strategy: 'jwt',
+	},
 	providers: [
 		CredentialsProvider({
 			name: 'Credentials',
 			credentials: {
-				name: {
-					label: 'Name',
-					type: 'text',
-					placeholder: 'Enter your name',
-				},
+				// name: {
+				// 	label: 'Name',
+				// 	type: 'text',
+				// 	placeholder: 'Enter your name',
+				// },
 			},
-			async authorize(credentials, _req) {
+			async authorize(credentials, req) {
 				const user = { id: 1, name: credentials?.name ?? 'User' }
-				return user
+
+				if (user) {
+					return user
+				} else {
+					return null
+				}
 			},
 		}),
 	],
 	secret: process.env.NEXTAUTH_SECRET,
-	session: {
-		strategy: 'jwt',
+	pages: {
+		signIn: '/join',
 	},
 }
 
