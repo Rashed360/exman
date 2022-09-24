@@ -70,6 +70,7 @@
 	width: 100%;
 	background: var(--shade5);
 	border-radius: 20px;
+	padding-bottom: 10px;
 }
 .window_pane .heading {
 	display: flex;
@@ -225,6 +226,12 @@
 	border: 1px solid var(--shade1);
 	color: var(--shade0);
 	background: var(--shade4);
+}
+.formControl textarea {
+	max-width: 100%;
+	min-width: 100%;
+	max-height: 125px;
+	min-height: 50px;
 }
 .formControl button.btn_primary {
 	cursor: pointer;
