@@ -29,6 +29,24 @@ body {
 html {
 	scroll-behavior: smooth;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+input[type='number'] {
+	-moz-appearance: textfield;
+}
+::placeholder {
+	color: var(--shade2);
+	opacity: 1;
+}
+:-ms-input-placeholder {
+	color: var(--shade2);
+}
+::-ms-input-placeholder {
+	color: var(--shade2);
+}
 
 h1,
 h2,
@@ -41,7 +59,9 @@ p {
 	margin: 0;
 	color: var(--shade0);
 }
-
+button {
+	border: none;
+}
 abbr,
 a {
 	color: inherit;

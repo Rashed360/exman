@@ -66,43 +66,139 @@
 	font-size: 16px;
 }
 
-.joinUs {
+.window_pane {
 	width: 100%;
 	background: var(--shade5);
 	border-radius: 20px;
 }
-.joinUs .heading {
+.window_pane .heading {
 	display: flex;
 	justify-content: space-between;
 	border-bottom: 1px solid var(--shade3);
 }
-.joinUs .heading h3 {
+.window_pane .heading h3 {
 	padding: 15px 30px;
 	font-weight: 600;
 	font-size: 20px;
 }
-.joinUs .heading h3.inactive {
+.window_pane .heading h3.inactive {
 	color: var(--shade1);
 }
-.joinUs .heading .left,
-.joinUs .heading .right {
+.window_pane .heading .left,
+.window_pane .heading .right {
 	width: 50%;
 }
-.joinUs .heading .right {
+.window_pane .heading .right {
 	border-left: 1px solid var(--shade3);
 }
-.joinUs .content {
+.window_pane .content {
 	padding: 0 10px;
 }
-.joinUs .content .title {
+.window_pane .content .title {
 	padding: 10px 20px;
 	font-weight: 400;
 	font-size: 12px;
 	color: var(--shade1);
 }
 
+.formSection {
+	margin: 15px 0;
+	border-top: 1px solid var(--shade3);
+}
+.formGroup {
+	display: flex;
+	gap: 10px;
+}
+.formGroup.vertical {
+	margin-top: 10px;
+	flex-direction: column;
+}
+.formGroup .formControl {
+	padding-top: 5px;
+}
+.formGroup .mini_tags {
+	display: flex;
+	gap: 5px;
+	flex-direction: row;
+	margin-top: 10px;
+}
+.formGroup .mini_tag {
+	overflow: hidden;
+
+	display: flex;
+	gap: 5px;
+	align-items: center;
+	font-size: 0.75em;
+	padding: 2px 5px;
+	border-radius: 20px;
+	color: var(--shade5);
+	background: var(--shade0);
+}
+.formGroup .mini_tags button.mini_cross {
+	display: flex;
+	align-items: center;
+	font-size: 1.85em;
+	padding: 0;
+	margin: -5px -3px -5px 0;
+	border-radius: 10px;
+	height: 100%;
+}
+.formGroup .mini_tags button.mini_cross:hover {
+	background: var(--shade1);
+}
+.display_image {
+	display: flex;
+	justify-content: space-between;
+	background: var(--shade5);
+	border: 1px solid var(--shade3);
+	border-radius: 3px;
+}
+.display_image button {
+	display: flex;
+	align-items: center;
+	margin: 5px;
+	font-size: 1.25em;
+	border-radius: 3px;
+	border: none;
+	background: var(--shade1);
+}
+.display_image .image_box {
+	display: flex;
+	gap: 10px;
+	flex-direction: row;
+}
+.display_image .image_box .image {
+	width: 2.75em;
+	height: 2.75em;
+	background-color: var(--shade4);
+}
+.display_image .text_group {
+	display: flex;
+	flex-direction: column;
+}
+.display_image .text_group .subTitle {
+	font-size: 12px;
+	color: var(--shade1);
+}
+.formControl .inputGroup {
+	display: flex;
+}
+.formControl .inputGroup button {
+	flex: 1;
+	background-color: var(--shade1);
+}
+.formControl .inputGroup button:first-child,
+.formControl .inputGroup input:first-child {
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+}
+.formControl .inputGroup button:last-child,
+.formControl .inputGroup input:last-child {
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+}
 .formControl {
-	padding: 10px 0;
+	padding-top: 10px;
 }
 .formControl label {
 	color: var(--shade0);
@@ -110,40 +206,51 @@
 	margin-left: 5px;
 	margin-bottom: 10px;
 }
-.formControl input {
+.formControl label span {
+	color: var(--accent);
+}
+.formControl input,
+.formControl button,
+.formControl textarea {
 	width: 100%;
 	padding: 10px 20px;
-
-	background: var(--shade4);
-	border: 1px solid var(--shade1);
-	border-radius: 10px;
-
 	font-family: 'Poppins';
 	font-style: normal;
 	font-weight: 400;
-	font-size: 16px;
-	/* color: #f2f2f2; */
-	color: var(--shade2);
+	font-size: 1em;
+	border-radius: 10px;
 }
-.formControl button {
+.formControl input,
+.formControl textarea {
+	border: 1px solid var(--shade1);
+	color: var(--shade0);
+	background: var(--shade4);
+}
+.formControl button.btn_primary {
 	cursor: pointer;
 	user-select: none;
-
-	width: 100%;
-	padding: 10px 20px;
-
-	background: var(--accent);
-	border: 1px solid var(--shade4);
-	border-radius: 10px;
-	font-family: 'Poppins';
-
 	font-weight: 500;
-	font-size: 16px;
+	border: 1px solid var(--shade4);
 	color: var(--shade5);
+	background: var(--accent);
 }
+.formControl button.mini_button {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+	font-size: 0.75em;
+	padding: 2px 10px;
+	border-radius: 20px;
+	background: var(--shade1);
+}
+.formControl button.mini_button.active {
+	background: var(--shade0);
+}
+.display_image button:hover,
 .formControl button:hover {
 	filter: brightness(1.125);
 }
+.display_image button:active,
 .formControl button:active {
 	filter: brightness(0.925);
 }

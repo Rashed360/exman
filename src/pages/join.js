@@ -8,7 +8,7 @@ const JoinUs = () => {
 			<div className='container'>
 				<div className='section'>
 					<p className='section__title'>Login or create an account</p>
-					<div className='joinUs'>
+					<div className='window_pane'>
 						<div className='heading'>
 							<div className='left'>
 								<h3>Login</h3>
@@ -51,7 +51,7 @@ const JoinUs = () => {
 							</div>
 
 							<div className='formControl'>
-								<button>Login Now</button>
+								<button className='btn_primary'>Login Now</button>
 							</div>
 
 							<div className='formControl'>
