@@ -7,6 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//----> Auth Models <----//
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -36,12 +37,14 @@ model Session {
 
 model User {
   id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
+  fisrtName     String?
+  lastName      String?
+  email         String    @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
+  ledger        Ledger[]
 }
 
 model VerificationToken {
@@ -50,4 +53,42 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+//----> App Models <----//
+model Ledger {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  type        Type    @default(EXP)
+  amount      Float
+  title       String
+  description String?
+  balance     Float?
+
+  images Image[]
+  tags   Tag[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Type {
+  EXP
+  INC
+}
+
+model Image {
+  id       String @id @default(cuid())
+  ledger   Ledger @relation(fields: [ledgerId], references: [id])
+  ledgerId String
+  url      String
+}
+
+model Tag {
+  id       String @id @default(cuid())
+  ledger   Ledger @relation(fields: [ledgerId], references: [id])
+  ledgerId String
+  title    String
 }
