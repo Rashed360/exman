@@ -1,5 +1,7 @@
 {
   "name": "ex-man",
+  "description": "everyday expense manager",
+  "author": "Rashed Ahmed <ruman.rush@gmail.com> (http://rashed.vercel.app/)",
   "version": "0.1.0",
   "scripts": {
     "dev": "next dev",
