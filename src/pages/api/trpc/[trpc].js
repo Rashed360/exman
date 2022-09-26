@@ -1,15 +1,11 @@
-import * as trpcNext from '@trpc/server/adapters/next'
-import { createContext } from '../../../server/createContext'
-import { appRouter } from '../../../server/route/app.router'
+import { createNextApiHandler } from '@trpc/server/adapters/next'
+import { appRouter } from '../../../server/router'
+import { createContext } from '../../../server/context'
 
-export default trpcNext.createNextApiHandler({
+export default createNextApiHandler({
 	router: appRouter,
 	createContext,
-	onError({ error }) {
-		if (error.code === 'INTERNAL_SERVER_ERROR') {
-			console.error('Something Went Wrong', error)
-		} else {
-			console.error(error)
-		}
+	onError: ({ path, error }) => {
+		console.error(`❌ tRPC failed on ${path}: ${error}`)
 	},
 })
