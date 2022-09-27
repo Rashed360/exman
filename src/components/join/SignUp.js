@@ -1,48 +1,54 @@
-import React from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { signUpFormSchema } from '../../schemas/forms.schema'
+import JoinWrapper from '../../components/join/JoinWrapper'
 
-const SignUpForm = ({ login }) => {
+const SignUpForm = ({ login, setLogin }) => {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		resolver: zodResolver(signUpFormSchema),
+	})
+	const onSubmit = values => {
+		console.log(values)
+	}
 	return (
-		<div className='content'>
-			<p className='title'>Provide credentials to {login ? 'login' : 'sign up'} to ex-man</p>
+		<JoinWrapper login={login} setLogin={setLogin}>
+			<form className='content' onSubmit={handleSubmit(onSubmit)}>
+				<p className='title'>Provide credentials to sign up to ex-man</p>
 
-			<div className='formControl'>
-				<label htmlFor='email'>Email Address</label>
-				<input type='text' name='email' className='' placeholder='Email Address' />
-			</div>
+				<div className='formControl'>
+					<label htmlFor='email'>First Name</label>
+					<input type='text' placeholder='John' />
+				</div>
 
-			<div className='formControl'>
-				<label htmlFor='email'>Password</label>
-				<input type='text' name='email' className='' placeholder='••••••••••••••••••' />
-				<ul>
-					<li>Password must be 8 characters long</li>
-					<li>Password must contain special symbols</li>
-				</ul>
-			</div>
+				<div className='formControl'>
+					<label htmlFor='email'>Last Name</label>
+					<input type='text' placeholder='Doe' />
+				</div>
 
-			<div className='formControl okay'>
-				<label htmlFor='email'>Password (Okay)</label>
-				<input type='text' name='email' className='' placeholder='••••••••••••••••••' />
-				<ul>
-					<li>Looks Good</li>
-				</ul>
-			</div>
+				<div className='formControl'>
+					<label htmlFor='email'>Email Address</label>
+					<input type='text' placeholder='user@domain.com' />
+				</div>
 
-			<div className='formControl error'>
-				<label htmlFor='email'>Password (Error)</label>
-				<input type='text' name='email' className='' placeholder='••••••••••••••••••' />
-				<ul>
-					<li>Invalid Password</li>
-				</ul>
-			</div>
+				<div className='formControl'>
+					<label htmlFor='email'>Password</label>
+					<input type='password' placeholder='••••••••••••••••' />
+				</div>
 
-			<div className='formControl'>
-				<button className='btn_primary'>{login ? 'Login' : 'SignUp'} Now</button>
-			</div>
+				<div className='formControl'>
+					<label htmlFor='email'>Confirm Password</label>
+					<input type='password' placeholder='••••••••••••••••' />
+				</div>
 
-			<div className='formControl'>
-				<button className='disabled'>{login ? 'Login' : 'SignUp'} Now</button>
-			</div>
-		</div>
+				<div className='formControl'>
+					<button className='btn_primary'>SignUp Now</button>
+				</div>
+			</form>
+		</JoinWrapper>
 	)
 }
 
