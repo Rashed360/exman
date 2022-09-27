@@ -5,7 +5,7 @@ import { VscError } from 'react-icons/vsc'
 const NotFound = () => {
 	return (
 		<Layout>
-			<Navbar toggleMode='' />
+			<Navbar />
 			<div className='container'>
 				<div className='notFound'>
 					<div className='info'>

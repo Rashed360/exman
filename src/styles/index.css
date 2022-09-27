@@ -311,3 +311,56 @@
 	width: 10vh;
 	height: 10vh;
 }
+.spinner_page {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
+	text-align: center;
+}
+.spinner_page .logoSection svg {
+	width: 150px;
+	height: 68px;
+}
+.spinner_page .logoSection h1 {
+	text-transform: uppercase;
+	line-height: 1em;
+	font-size: 34px;
+}
+/*
+.spinner_page p {
+	color: var(--shade0);
+}
+ .spinner_page svg rect {
+	animation: loaderAnimation 2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.spinner_page svg rect:nth-child(1) {
+	animation-delay: -0.4s;
+}
+.spinner_page svg rect:nth-child(2) {
+	animation-delay: -0.32s;
+}
+.spinner_page svg rect:nth-child(3) {
+	animation-delay: -0.24s;
+}
+.spinner_page svg rect:nth-child(4) {
+	animation-delay: -0.16s;
+}
+.spinner_page svg rect:nth-child(5) {
+	animation-delay: -0.08s;
+}
+.spinner_page svg rect:nth-child(6) {
+	animation-delay: 0;
+}
+@keyframes loaderAnimation {
+	0% {
+		fill: var(--shade1);
+	}
+	50%,
+	100% {
+		fill: var(--shade0);
+	}
+} */
