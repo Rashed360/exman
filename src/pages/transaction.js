@@ -8,11 +8,14 @@ const AddMoney = () => {
 	const { register, handleSubmit } = useForm()
 	const [showImages, setShowImages] = useState(false)
 	const [showTags, setShowTags] = useState(false)
+	const [useType, setUseType] = useState(true)
 	const toggler = show => {
 		if (show === 0) {
 			setShowImages(!showImages)
-		} else {
+		} else if (show === 1) {
 			setShowTags(!showTags)
+		} else {
+			setUseType(!useType)
 		}
 	}
 	const onSubmit = values => {
@@ -20,13 +23,20 @@ const AddMoney = () => {
 	}
 	return (
 		<Layout>
-			<Navbar toggleMode='' />
+			<Navbar />
 			<div className='container'>
 				<div className='section'>
-					<p className='section__title'>Add money to your account</p>
+					<p className='section__title'>Add {useType ? 'expense' : 'money'} to your account</p>
 					<div className='window_pane'>
 						<div className='heading'>
-							<h3>Add Money</h3>
+							<div className='left'>
+								<h3>Add {useType ? 'Expense' : 'Money'}</h3>
+							</div>
+							<div className='right'>
+								<h3 className='inactive' onClick={toggler}>
+									Add {useType ? 'Money' : 'Expense'}
+								</h3>
+							</div>
 						</div>
 						<form className='content' onSubmit={handleSubmit(onSubmit)}>
 							<p className='title'>Provide amount and title</p>
@@ -133,7 +143,7 @@ const AddMoney = () => {
 
 							<div className='formControl'>
 								<button className='btn_primary' type='submit'>
-									Add Money
+									Add {useType ? 'Expense' : 'Money'}
 								</button>
 							</div>
 						</form>

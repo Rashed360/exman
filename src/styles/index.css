@@ -78,16 +78,23 @@
 	border-bottom: 1px solid var(--shade3);
 }
 .window_pane .heading h3 {
-	padding: 15px 30px;
+	/* padding: 15px 30px; */
+	padding: 15px;
 	font-weight: 600;
 	font-size: 20px;
+	text-align: center;
 }
 .window_pane .heading h3.inactive {
+	font-size: 18px;
 	color: var(--shade1);
+	transition: 300ms;
 }
-.window_pane .heading .left,
-.window_pane .heading .right {
-	width: 50%;
+.window_pane .heading h3.inactive:hover {
+	cursor: pointer;
+	color: var(--accent);
+}
+.window_pane .heading .left {
+	flex: auto;
 }
 .window_pane .heading .right {
 	border-left: 1px solid var(--shade3);

@@ -48,25 +48,13 @@ const Navbar = () => {
 						<div className={style.section}>
 							<div className={style.navItems}>
 								<NavItem name='Dashboard' link='/' icon={<VscPreview />} toggle={sidebarToggler} />
-								<NavItem name='Add Money' link='/money' icon={<VscDiffAdded />} toggle={sidebarToggler} />
 								<NavItem
-									name='Add Expense'
-									link='/expense'
+									name='New Transaction'
+									link='/transaction'
 									icon={<VscDiffRemoved />}
 									toggle={sidebarToggler}
 								/>
-								<NavItem
-									name='Shared Expense'
-									link='/shared'
-									icon={<VscDiffRemoved />}
-									toggle={sidebarToggler}
-								/>
-								<NavItem
-									name='Plan Expense'
-									link='/plan'
-									icon={<VscDiffRemoved />}
-									toggle={sidebarToggler}
-								/>
+								<NavItem name='Plan Expense' link='/plan' icon={<VscDiffRemoved />} toggle={sidebarToggler} />
 								<NavItem
 									name='Statistics'
 									link='/statistics'
