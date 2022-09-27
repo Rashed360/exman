@@ -242,6 +242,7 @@
 }
 .formControl button.btn_primary {
 	cursor: pointer;
+	margin-top: 10px;
 	user-select: none;
 	font-weight: 500;
 	border: 1px solid var(--shade4);
