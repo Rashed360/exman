@@ -1,10 +1,13 @@
 import Logo from '../assets/Logo'
 import Image from 'next/image'
 import HomeMoney from '../assets/HomeMoney.svg'
+import { useRouter } from 'next/router'
 
 const WelcomePage = () => {
+	const router = useRouter()
 	const setOldUser = () => {
 		localStorage.setItem('lightMode', false)
+		router.push('/join')
 	}
 	return (
 		<div className='start_page'>

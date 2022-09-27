@@ -1,14 +1,6 @@
 import { useForm } from 'react-hook-form'
-import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-
-const schema = z.object({
-	email: z.string().min(1, { message: 'Email is required' }).email({ message: 'Must be a valid email' }),
-	password: z
-		.string()
-		.min(1, { message: 'Password must contain special symbols' })
-		.min(8, { message: 'Password must be 8 characters long' }),
-})
+import { loginFormSchema } from '../../schemas/forms.schema'
 
 const LoginForm = ({ login }) => {
 	const {
@@ -16,7 +8,7 @@ const LoginForm = ({ login }) => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm({
-		resolver: zodResolver(schema),
+		resolver: zodResolver(loginFormSchema),
 	})
 	const onSubmit = values => {
 		console.log(values)
