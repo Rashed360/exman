@@ -1,5 +1,5 @@
 import Layout from '../components/Layout'
-import Spinner from '../components/Spinner'
+import WelcomePage from '../components/WelcomePage'
 import Dashboard from '../components/dashboard/Dashboard'
 import { useEffect, useState } from 'react'
 
@@ -15,7 +15,7 @@ const Home = () => {
 	if (welcome) {
 		return (
 			<Layout>
-				<Spinner />
+				<WelcomePage />
 			</Layout>
 		)
 	}

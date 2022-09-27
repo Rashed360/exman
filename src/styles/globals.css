@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 * {
 	box-sizing: border-box;
@@ -107,4 +107,15 @@ body {
 }
 .window::-webkit-scrollbar {
 	display: none;
+}
+
+/* Common Classes */
+.flex {
+	display: flex;
+}
+.justify-center {
+	justify-content: center;
+}
+.align-center {
+	align-items: center;
 }

@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useContext } from 'react'
 import { ThemeContext } from '../utils/ThemeContext'
 import { useState } from 'react'
-import { VscThreeBars, VscPreview, VscDiffAdded, VscDiffRemoved, VscSignOut } from 'react-icons/vsc'
+import { VscThreeBars, VscPreview, VscDiffRemoved, VscSignOut } from 'react-icons/vsc'
 
 const Navbar = () => {
 	const { toggleLightMode } = useContext(ThemeContext)
