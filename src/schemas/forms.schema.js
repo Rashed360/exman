@@ -15,15 +15,16 @@ export const signUpFormSchema = z
 		email: z.string().min(1, { message: 'Email is required' }).email({ message: 'Must be a valid email' }),
 		password: z
 			.string()
-			.min(1, { message: 'Password must contain special symbols' })
-			.min(8, { message: 'Password must be 8 characters long' }),
-		confirmPassword: z.string(),
+			.min(1, { message: 'Password is Required' })
+			.min(8, { message: 'Must be 8 characters long' })
+			.regex(/(?=.*[0-9])/, { message: 'Must contain at-least one number.' })
+			.regex(/(?=.*[!@#$%^&*])/, { message: 'Must contain special symbols.' }),
+		confirmPassword: z
+			.string()
+			.min(1, { message: 'Confirm Password is Required' })
+			.min(8, { message: 'Must be 8 characters long' }),
 	})
-	.superRefine(({ confirmPassword, password }, ctx) => {
-		if (confirmPassword !== password) {
-			ctx.addIssue({
-				code: 'custom',
-				message: 'The passwords did not match',
-			})
-		}
+	.refine(data => data.password === data.confirmPassword, {
+		path: ['confirmPassword'],
+		message: "Passwords don't match",
 	})
