@@ -1,7 +1,7 @@
 import Credentials from 'next-auth/providers/credentials'
-import { verify } from 'argon2'
-import { prisma } from './prisma'
+import { prisma } from '../../utils/prisma'
 import { loginUserSchema } from '../../schemas/user.schema'
+import { verify } from 'argon2'
 
 export const nextAuthOptions = {
 	providers: [
@@ -51,9 +51,8 @@ export const nextAuthOptions = {
 	// session: {
 	// 	strategy: 'jwt',
 	// },
-
+	secret: process.env.NEXTAUTH_SECRET,
 	jwt: {
-		secret: process.env.NEXTAUTH_SECRET,
 		maxAge: 7 * 24 * 30 * 60, // 7days
 	},
 	pages: {

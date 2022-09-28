@@ -7,7 +7,7 @@ export const requireAuth = func => async ctx => {
 	if (!session) {
 		return {
 			redirect: {
-				destination: '/auth/login',
+				destination: '/welcome',
 				permanent: false,
 			},
 		}

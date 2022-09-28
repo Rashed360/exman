@@ -1,27 +1,18 @@
 import Layout from '../components/Layout'
-import WelcomePage from '../components/WelcomePage'
 import Dashboard from '../components/dashboard/Dashboard'
-import { useEffect, useState } from 'react'
+import { useSession, signOut } from 'next-auth/react'
+import { requireAuth } from '../server/auth/requireAuth'
+
+export const getServerSideProps = requireAuth(async ctx => {
+	return { props: {} }
+})
 
 const Home = () => {
-	const [welcome, setWelcome] = useState(true)
-	useEffect(() => {
-		const mode = localStorage.getItem('lightMode')
-		if (mode) {
-			setWelcome(false)
-		}
-	}, [])
-
-	if (welcome) {
-		return (
-			<Layout>
-				<WelcomePage />
-			</Layout>
-		)
-	}
+	const { data } = useSession()
 	return (
 		<Layout>
 			<Dashboard />
+			<button onClick={() => signOut({ callbackUrl: '/' })}>LogOut</button>
 		</Layout>
 	)
 }
