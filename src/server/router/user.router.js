@@ -1,16 +1,15 @@
-import { createUserSchema, createUserOutputSchema } from '../../schemas/user.schema'
-import { createRouter } from '../context'
 import * as trpc from '@trpc/server'
+import { hash } from 'argon2'
+import { createRouter } from '../context'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
+import { createUserSchema } from '../../schemas/user.schema'
 
 export const userRouter = createRouter()
 	.mutation('register-user', {
 		input: createUserSchema,
-		output: createUserOutputSchema,
 		resolve: async ({ ctx, input }) => {
 			const { fisrtName, lastName, email, password } = input
-			const hashPassword = password
-
+			const hashPassword = await hash(password)
 			try {
 				const user = await ctx.prisma.user.create({
 					data: {
@@ -20,7 +19,11 @@ export const userRouter = createRouter()
 						password: hashPassword,
 					},
 				})
-				return user
+				return {
+					status: 201,
+					message: 'Registration Successful',
+					result: user.email,
+				}
 			} catch (e) {
 				if (e instanceof PrismaClientKnownRequestError) {
 					if (e.code === 'P2002') {

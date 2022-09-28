@@ -1,18 +1,20 @@
 import '../styles/globals.css'
 import '../styles/index.css'
 import { ThemeContextProvider } from '../utils/ThemeContext'
+import { SessionProvider } from 'next-auth/react'
 import { withTRPC } from '@trpc/next'
 import { loggerLink } from '@trpc/client/links/loggerLink'
 import { httpBatchLink } from '@trpc/client/links/httpBatchLink'
 import superjson from 'superjson'
 import { url } from '../constants/baseUrl'
-import { trpc } from '../utils/trpc'
 
 function Index({ Component, pageProps }) {
 	return (
-		<ThemeContextProvider>
-			<Component {...pageProps} />
-		</ThemeContextProvider>
+		<SessionProvider session={pageProps.session}>
+			<ThemeContextProvider>
+				<Component {...pageProps} />
+			</ThemeContextProvider>
+		</SessionProvider>
 	)
 }
 

@@ -1,12 +1,11 @@
 import { router } from '@trpc/server'
 import { prisma } from '../../utils/prisma'
-import { getSession } from 'next-auth/react'
+import { nextAuthOptions } from '../auth'
+import { unstable_getServerSession } from 'next-auth'
 
-export const createContext = async opts => {
-	const req = opts?.req
-	const res = opts?.res
-
-	const session = req && res && (await getSession({ req }))
+export const createContext = async ctx => {
+	const { req, res } = ctx
+	const session = await unstable_getServerSession(req, res, nextAuthOptions)
 
 	return {
 		req,

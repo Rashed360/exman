@@ -1,7 +1,7 @@
 import JoinWrapper from '../../components/join/JoinWrapper'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { signUpFormSchema } from '../../schemas/forms.schema'
+import { signUpFormUserSchema } from '../../schemas/user.schema'
 import { trpc } from '../../utils/trpc'
 import { useRouter } from 'next/router'
 
@@ -13,17 +13,22 @@ const SignUpForm = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm({
-		resolver: zodResolver(signUpFormSchema),
+		resolver: zodResolver(signUpFormUserSchema),
 	})
 
-	const { mutate, error } = trpc.useMutation(['users.register-user'], {
+	const { mutateAsync, error } = trpc.useMutation(['users.register-user'], {
 		onSuccess: () => {
 			router.push('/auth/login')
 		},
 	})
 
-	const onSubmit = values => {
-		mutate(values)
+	const onSubmit = async values => {
+		mutateAsync({
+			fisrtName: values.fisrtName,
+			lastName: values.lastName,
+			email: values.email,
+			password: values.password,
+		})
 		reset()
 	}
 

@@ -1,6 +1,7 @@
+import { signIn } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { loginFormSchema } from '../../schemas/forms.schema'
+import { loginFormUserSchema } from '../../schemas/user.schema'
 import JoinWrapper from '../../components/join/JoinWrapper'
 
 const LoginForm = () => {
@@ -9,10 +10,10 @@ const LoginForm = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm({
-		resolver: zodResolver(loginFormSchema),
+		resolver: zodResolver(loginFormUserSchema),
 	})
-	const onSubmit = values => {
-		console.log(values)
+	const onSubmit = async values => {
+		await signIn('credentials', { ...values, callbackUrl: '/' })
 	}
 	return (
 		<JoinWrapper login={true}>
