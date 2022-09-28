@@ -3,8 +3,10 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signUpFormSchema } from '../../schemas/forms.schema'
 import { trpc } from '../../utils/trpc'
+import { useRouter } from 'next/router'
 
 const SignUpForm = ({ login, setLogin }) => {
+	const router = useRouter()
 	const {
 		register,
 		handleSubmit,
@@ -13,11 +15,11 @@ const SignUpForm = ({ login, setLogin }) => {
 		resolver: zodResolver(signUpFormSchema),
 	})
 
-	// const { mutate, error } = trpc.useMutation(['users.register-user'], {
-	// 	onSuccess: () => {
-	// 		router.push('/login')
-	// 	},
-	// })
+	const { mutate, error } = trpc.useMutation(['users.register-user'], {
+		onSuccess: () => {
+			router.push('/login')
+		},
+	})
 
 	const onSubmit = values => {
 		// mutate(values)

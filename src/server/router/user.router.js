@@ -1,5 +1,5 @@
 import { createUserSchema, createUserOutputSchema } from '../../schemas/user.schema'
-import { createRouter } from '../createRouter'
+import { createRouter } from '../context'
 import * as trpc from '@trpc/server'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
 

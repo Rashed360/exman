@@ -1,4 +1,4 @@
-import * as trpc from '@trpc/server'
+import { router } from '@trpc/server'
 import { prisma } from '../../utils/prisma'
 import { getSession } from 'next-auth/react'
 
@@ -16,4 +16,4 @@ export const createContext = async opts => {
 	}
 }
 
-export const createRouter = () => trpc.router()
+export const createRouter = () => router()
