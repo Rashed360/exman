@@ -74,6 +74,7 @@
 }
 .window_pane .heading {
 	display: flex;
+	user-select: none;
 	justify-content: space-between;
 	border-bottom: 1px solid var(--shade3);
 }
@@ -207,6 +208,14 @@
 }
 .formControl {
 	padding-top: 10px;
+}
+.formControl p.error_msg {
+	font-size: 0.85em;
+	text-align: center;
+	color: var(--danger);
+	border-radius: 10px;
+	border: 1px solid var(--danger);
+	background-color: rgba(var(--accent), 0.5);
 }
 .formControl label {
 	color: var(--shade0);

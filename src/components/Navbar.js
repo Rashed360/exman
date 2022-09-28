@@ -67,7 +67,7 @@ const Navbar = () => {
 									icon={<VscDiffRemoved />}
 									toggle={sidebarToggler}
 								/>
-								<NavItem name='Logout' link='/join' icon={<VscSignOut />} toggle={sidebarToggler} />
+								<NavItem name='Logout' link='/auth' icon={<VscSignOut />} toggle={sidebarToggler} />
 							</div>
 						</div>
 						<div className={style.sidebarFooter}>

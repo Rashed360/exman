@@ -8,88 +8,46 @@ datasource db {
 }
 
 //----> Auth Models <----//
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
 model User {
-  id            String    @id @default(cuid())
-  fisrtName     String?
-  lastName      String?
-  email         String    @unique
-  emailVerified DateTime?
-  password      String
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  ledger        Ledger[]
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  fisrtName String?
+  lastName  String?
+  image     String?
+  ledger    Ledger[]
 }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
-}
-
-//----> App Models <----//
 model Ledger {
-  id     String @id @default(cuid())
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
-
-  type        Type    @default(EXP)
+  id          String        @id @default(cuid())
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  type        LedgerType    @default(EXP)
   amount      Float
   title       String
   description String?
   balance     Float?
-
-  images Image[]
-  tags   Tag[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  images      LedgerImage[]
+  tags        LedgerTag[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 }
 
-enum Type {
+enum LedgerType {
   EXP
   INC
 }
 
-model Image {
+model LedgerImage {
   id       String @id @default(cuid())
-  ledger   Ledger @relation(fields: [ledgerId], references: [id])
+  ledger   Ledger @relation(fields: [ledgerId], references: [id], onDelete: Cascade)
   ledgerId String
   url      String
 }
 
-model Tag {
+model LedgerTag {
   id       String @id @default(cuid())
-  ledger   Ledger @relation(fields: [ledgerId], references: [id])
+  ledger   Ledger @relation(fields: [ledgerId], references: [id], onDelete: Cascade)
   ledgerId String
   title    String
 }

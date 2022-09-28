@@ -2,8 +2,10 @@ import PageContent from '../common/PageContent'
 import Section from '../common/Section'
 import Layout from '../Layout'
 import Navbar from '../Navbar'
+import { useRouter } from 'next/router'
 
-const JoinWrapper = ({ login, setLogin, children }) => {
+const JoinWrapper = ({ login, children }) => {
+	const { push } = useRouter()
 	return (
 		<Layout>
 			<Navbar />
@@ -17,7 +19,7 @@ const JoinWrapper = ({ login, setLogin, children }) => {
 							</div>
 
 							<div className='right'>
-								<h3 className='inactive' onClick={() => setLogin(!login)}>
+								<h3 className='inactive' onClick={() => push(`/auth/${login ? 'signup' : 'login'}`)}>
 									{login ? 'SignUp' : 'Login'}
 								</h3>
 							</div>

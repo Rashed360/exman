@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { loginFormSchema } from '../../schemas/forms.schema'
 import JoinWrapper from '../../components/join/JoinWrapper'
 
-const LoginForm = ({ login, setLogin }) => {
+const LoginForm = () => {
 	const {
 		register,
 		handleSubmit,
@@ -15,7 +15,7 @@ const LoginForm = ({ login, setLogin }) => {
 		console.log(values)
 	}
 	return (
-		<JoinWrapper login={login} setLogin={setLogin}>
+		<JoinWrapper login={true}>
 			<form className='content' onSubmit={handleSubmit(onSubmit)}>
 				<p className='title'>Provide credentials to login to ex-man</p>
 

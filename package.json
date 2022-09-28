@@ -21,7 +21,7 @@
     "jotai": "^1.8.4",
     "jsonwebtoken": "^8.5.1",
     "next": "12.3.0",
-    "next-auth": "^4.10.3",
+    "next-auth": "^4.12.1",
     "node-fetch": "^3.2.10",
     "react": "18.2.0",
     "react-dom": "18.2.0",

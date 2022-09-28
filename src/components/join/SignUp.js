@@ -5,9 +5,10 @@ import { signUpFormSchema } from '../../schemas/forms.schema'
 import { trpc } from '../../utils/trpc'
 import { useRouter } from 'next/router'
 
-const SignUpForm = ({ login, setLogin }) => {
+const SignUpForm = () => {
 	const router = useRouter()
 	const {
+		reset,
 		register,
 		handleSubmit,
 		formState: { errors },
@@ -17,21 +18,25 @@ const SignUpForm = ({ login, setLogin }) => {
 
 	const { mutate, error } = trpc.useMutation(['users.register-user'], {
 		onSuccess: () => {
-			router.push('/login')
+			router.push('/auth/login')
 		},
 	})
 
 	const onSubmit = values => {
-		// mutate(values)
-		console.log(values)
+		mutate(values)
+		reset()
 	}
 
 	return (
-		<JoinWrapper login={login} setLogin={setLogin}>
+		<JoinWrapper login={false}>
 			<form className='content' onSubmit={handleSubmit(onSubmit)}>
 				<p className='title'>Provide credentials to sign up to ex-man</p>
 
-				{/* {error && <div className='formControl'>{error.message}</div>} */}
+				{error && (
+					<div className='formControl'>
+						<p className='error_msg'>{error.message}</p>
+					</div>
+				)}
 
 				<div className={`formControl${errors.fisrtName ? ' error' : ''}`}>
 					<label>First Name</label>
