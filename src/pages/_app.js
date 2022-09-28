@@ -20,14 +20,19 @@ function Index({ Component, pageProps }) {
 
 export default withTRPC({
 	config({ ctx }) {
-		const links = [
-			loggerLink(),
-			httpBatchLink({
-				maxBatchSize: 10,
-				url,
-			}),
-		]
 		return {
+			links: [
+				loggerLink({
+					enabled: opts =>
+						process.env.NODE_ENV === 'development' ||
+						(opts.direction === 'down' && opts.result instanceof Error),
+				}),
+				httpBatchLink({
+					maxBatchSize: 10,
+					url,
+				}),
+			],
+			transformer: superjson,
 			queryClientConfig: {
 				defaultOptions: {
 					queries: {
@@ -35,17 +40,17 @@ export default withTRPC({
 					},
 				},
 			},
-			headers() {
+			headers: () => {
 				if (ctx?.req) {
+					const headers = ctx?.req?.headers
+					delete headers?.connection
 					return {
-						...ctx.req.headers,
+						...headers,
 						'x-ssr': '1',
 					}
 				}
 				return {}
 			},
-			links,
-			transformer: superjson,
 		}
 	},
 	ssr: false,
