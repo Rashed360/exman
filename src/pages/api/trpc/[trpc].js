@@ -8,14 +8,4 @@ export default createNextApiHandler({
 	onError: ({ path, error }) => {
 		console.error(`❌ tRPC failed on ${path}: ${error}`)
 	},
-	responseMeta(ctx) {
-		if (ctx.ctx?.req?.method === 'OPTIONS') {
-			ctx.ctx?.res?.writeHead(200)
-		}
-
-		return {
-			headers: ctx.ctx?.res?.getHeaders(),
-			statusCode: ctx.ctx?.res?.statusCode || 200,
-		}
-	},
 })

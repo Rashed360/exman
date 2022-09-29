@@ -17,7 +17,7 @@
                 },
                 {
                     "key": "Access-Control-Allow-Headers",
-                    "value": "X-Requested-With, Access-Control-Allow-Origin, X-HTTP-Method-Override, Content-Type, Authorization, Accept, X-CSRF-Token, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version"
+                    "value": "X-Requested-With, Access-Control-Allow-Origin, Origin, X-HTTP-Method-Override, Content-Type, Authorization, Accept, X-CSRF-Token, Accept-Version, Content-Length, Content-MD5, Date, X-Api-Version"
                 }
             ]
         }
