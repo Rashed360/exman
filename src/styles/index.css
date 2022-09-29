@@ -388,35 +388,3 @@
 .start_page .descSection .slideshow .controllers span:nth-child(2) {
 	background: var(--accent);
 }
-
-/*
- .spinner_page svg rect {
-	animation: loaderAnimation 2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
-}
-.spinner_page svg rect:nth-child(1) {
-	animation-delay: -0.4s;
-}
-.spinner_page svg rect:nth-child(2) {
-	animation-delay: -0.32s;
-}
-.spinner_page svg rect:nth-child(3) {
-	animation-delay: -0.24s;
-}
-.spinner_page svg rect:nth-child(4) {
-	animation-delay: -0.16s;
-}
-.spinner_page svg rect:nth-child(5) {
-	animation-delay: -0.08s;
-}
-.spinner_page svg rect:nth-child(6) {
-	animation-delay: 0;
-}
-@keyframes loaderAnimation {
-	0% {
-		fill: var(--shade1);
-	}
-	50%,
-	100% {
-		fill: var(--shade0);
-	}
-} */

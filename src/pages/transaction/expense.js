@@ -4,8 +4,11 @@ import { addExpenseFormSchema } from '../../schemas/ledger.schema'
 import { BiPaperclip, BiPurchaseTag, BiTrash, BiX } from 'react-icons/bi'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { trpc } from '../../utils/trpc'
+import { useRouter } from 'next/router'
 
 const AddExpense = () => {
+	const { push } = useRouter()
 	const [showImages, setShowImages] = useState(false)
 	const [showTags, setShowTags] = useState(false)
 
@@ -17,6 +20,13 @@ const AddExpense = () => {
 		}
 	}
 
+	const { mutate, error } = trpc.useMutation(['ledger.add-expense'], {
+		onSuccess: () => {
+			// push('/')
+			console.log('success')
+		},
+	})
+
 	const {
 		register,
 		handleSubmit,
@@ -26,7 +36,7 @@ const AddExpense = () => {
 	})
 
 	const onSubmit = values => {
-		console.log(values)
+		mutate({ ...values, type: 'EXP' })
 	}
 
 	return (
@@ -34,13 +44,20 @@ const AddExpense = () => {
 			<form className='content' onSubmit={handleSubmit(onSubmit)}>
 				<p className='title'>Provide amount and title</p>
 
+				{error && (
+					<div className='formControl'>
+						<p className='error_msg'>{error.message}</p>
+					</div>
+				)}
+
 				<div className={`formControl${errors.amount ? ' error' : touch.amount ? ' okay' : ''}`}>
 					<label>
 						Amount<span>*</span>
 					</label>
 					<input
 						type='number'
-						placeholder='99,999'
+						step='0.01'
+						placeholder='99.99'
 						{...register('amount', {
 							valueAsNumber: true,
 						})}

@@ -30,7 +30,6 @@ export const nextAuthOptions = {
 				return {
 					id: user.id,
 					email: user.email,
-					fisrtName: user.fisrtName,
 				}
 			},
 		}),
@@ -42,7 +41,6 @@ export const nextAuthOptions = {
 		},
 		session: async ({ session, token }) => {
 			token && (session.id = token.id)
-			session.user
 			return session
 		},
 	},

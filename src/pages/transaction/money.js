@@ -26,7 +26,7 @@ const AddMoney = () => {
 	})
 
 	const onSubmit = values => {
-		console.log(values)
+		console.log({ ...values, type: 'INC' })
 	}
 
 	return (
@@ -40,7 +40,8 @@ const AddMoney = () => {
 					</label>
 					<input
 						type='number'
-						placeholder='99,999'
+						step='0.01'
+						placeholder='99.99'
 						{...register('amount', {
 							valueAsNumber: true,
 						})}
