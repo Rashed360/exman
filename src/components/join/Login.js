@@ -3,8 +3,12 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { loginFormUserSchema } from '../../schemas/user.schema'
 import JoinWrapper from '../../components/join/JoinWrapper'
+import Spinner from '../Spinner'
+import { useState } from 'react'
 
 const LoginForm = () => {
+	const [loading, setLoading] = useState(false)
+
 	const {
 		register,
 		handleSubmit,
@@ -12,11 +16,15 @@ const LoginForm = () => {
 	} = useForm({
 		resolver: zodResolver(loginFormUserSchema),
 	})
+
 	const onSubmit = async values => {
-		await signIn('credentials', { ...values, callbackUrl: '/' })
+		setLoading(true)
+		await signIn('credentials', { ...values, callbackUrl: '/' }).then(() => setLoading(false))
 	}
+
 	return (
 		<JoinWrapper login={true}>
+			{loading && <Spinner />}
 			<form className='content' onSubmit={handleSubmit(onSubmit)}>
 				<p className='title'>Provide credentials to login to ex-man</p>
 

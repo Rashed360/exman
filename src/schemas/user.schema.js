@@ -1,7 +1,7 @@
 import z from 'zod'
 
 export const createUserSchema = z.object({
-	fisrtName: z.string().min(1),
+	firstName: z.string().min(1),
 	lastName: z.string().min(1),
 	email: z.string().min(5).email(),
 	password: z
@@ -32,7 +32,7 @@ export const loginFormUserSchema = z.object({
 
 export const signUpFormUserSchema = z
 	.object({
-		fisrtName: z.string().min(1, { message: 'First name is required' }),
+		firstName: z.string().min(1, { message: 'First name is required' }),
 		lastName: z.string().min(1, { message: 'Last name is required' }),
 		email: z.string().min(1, { message: 'Email is required' }).email({ message: 'Must be a valid email' }),
 		password: z

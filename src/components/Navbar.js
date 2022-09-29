@@ -10,6 +10,7 @@ import { VscThreeBars, VscPreview, VscDiffRemoved, VscSignOut } from 'react-icon
 
 const Navbar = () => {
 	const { status, data } = useSession()
+	console.log(data)
 	const { toggleLightMode } = useContext(ThemeContext)
 	const [sidebar, setSidebar] = useState(false)
 	const sidebarToggler = () => setSidebar(!sidebar)
@@ -41,11 +42,11 @@ const Navbar = () => {
 							<div className={style.section}>
 								<div className={style.profile}>
 									<div className={style.avatar} onClick={toggleLightMode}>
-										{false && <Image src='' layout='fill' alt='avatar' />}
+										{data.user.image && <Image src={data.user.image} layout='fill' alt='avatar' />}
 									</div>
 									<div className={style.info}>
-										<p>User Name</p>
-										<span>Regular User</span>
+										<p>{data.user.firstName + ' ' + data.user.lastName || 'User Name'}</p>
+										<span>{data.user.email || 'Regular User'}</span>
 									</div>
 								</div>
 							</div>

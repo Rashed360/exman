@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import Spinner from '../../components/Spinner'
 
 const Auth = () => {
 	const router = useRouter()
@@ -7,7 +8,7 @@ const Auth = () => {
 		router.push('/auth/login')
 	}, [router])
 
-	return <div>Loading</div>
+	return <Spinner />
 }
 
 export default Auth

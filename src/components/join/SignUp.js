@@ -1,4 +1,5 @@
 import JoinWrapper from '../../components/join/JoinWrapper'
+import Spinner from '../Spinner'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signUpFormUserSchema } from '../../schemas/user.schema'
@@ -17,7 +18,7 @@ const SignUpForm = () => {
 		resolver: zodResolver(signUpFormUserSchema),
 	})
 
-	const { mutateAsync, error } = trpc.useMutation(['users.register-user'], {
+	const { mutateAsync, error, isLoading } = trpc.useMutation(['users.register-user'], {
 		onSuccess: () => {
 			router.push('/auth/login')
 		},
@@ -25,7 +26,7 @@ const SignUpForm = () => {
 
 	const onSubmit = async values => {
 		mutateAsync({
-			fisrtName: values.fisrtName,
+			firstName: values.firstName,
 			lastName: values.lastName,
 			email: values.email,
 			password: values.password,
@@ -35,6 +36,7 @@ const SignUpForm = () => {
 
 	return (
 		<JoinWrapper login={false}>
+			{isLoading && <Spinner />}
 			<form className='content' onSubmit={handleSubmit(onSubmit)}>
 				<p className='title'>Provide credentials to sign up to ex-man</p>
 
@@ -44,17 +46,17 @@ const SignUpForm = () => {
 					</div>
 				)}
 
-				<div className={`formControl${errors.fisrtName ? ' error' : ''}`}>
+				<div className={`formControl${errors.firstName ? ' error' : ''}`}>
 					<label>First Name</label>
 					<input
 						type='text'
 						placeholder='John'
-						{...register('fisrtName')}
-						aria-invalid={errors.fisrtName ? 'true' : 'false'}
+						{...register('firstName')}
+						aria-invalid={errors.firstName ? 'true' : 'false'}
 					/>
-					{errors.fisrtName && (
+					{errors.firstName && (
 						<ul>
-							<li role='alert'>{errors.fisrtName.message}</li>
+							<li role='alert'>{errors.firstName.message}</li>
 						</ul>
 					)}
 				</div>

@@ -8,12 +8,12 @@ export const userRouter = createRouter()
 	.mutation('register-user', {
 		input: createUserSchema,
 		resolve: async ({ ctx, input }) => {
-			const { fisrtName, lastName, email, password } = input
+			const { firstName, lastName, email, password } = input
 			const hashPassword = await hash(password)
 			try {
 				const user = await ctx.prisma.user.create({
 					data: {
-						fisrtName,
+						firstName,
 						lastName,
 						email,
 						password: hashPassword,
@@ -47,7 +47,7 @@ export const userRouter = createRouter()
 					id: ctx.session.id,
 				},
 				select: {
-					fisrtName: true,
+					firstName: true,
 					lastName: true,
 					email: true,
 					image: true,

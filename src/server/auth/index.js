@@ -1,7 +1,9 @@
 import Credentials from 'next-auth/providers/credentials'
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { prisma } from '../../utils/prisma'
 import { loginUserSchema } from '../../schemas/user.schema'
 import { verify } from 'argon2'
+let userAccount = null
 
 export const nextAuthOptions = {
 	providers: [
@@ -9,39 +11,61 @@ export const nextAuthOptions = {
 			name: 'credentials',
 			credentials: {},
 			authorize: async (credentials, req) => {
-				const creds = await loginUserSchema.parseAsync(credentials)
+				try {
+					const creds = await loginUserSchema.parseAsync(credentials)
+					const user = await prisma.user.findFirst({
+						where: {
+							email: creds.email,
+						},
+					})
 
-				const user = await prisma.user.findUnique({
-					where: {
-						email: creds.email,
-					},
-				})
+					if (!user) {
+						return null
+					}
 
-				if (!user) {
-					return null
-				}
+					const isValidPassword = await verify(user.password, creds.password)
 
-				const isValidPassword = await verify(user.password, creds.password)
+					if (!isValidPassword) {
+						return null
+					}
 
-				if (!isValidPassword) {
-					return null
-				}
-
-				return {
-					id: user.id,
-					email: user.email,
+					userAccount = {
+						id: user.id,
+						firstName: user.firstName,
+						lastName: user.lastName,
+						email: user.email,
+						image: user.image,
+					}
+					return userAccount
+				} catch (e) {
+					console.log('Auth Error:', e)
 				}
 			},
 		}),
 	],
 	callbacks: {
+		session: async ({ session, token }) => {
+			if (userAccount !== null) {
+				session.user = {
+					id: userAccount.id,
+					name: `${userAccount.firstName} ${userAccount.lastName}`,
+					email: userAccount.email,
+					image: userAccount.image,
+				}
+			} else if (
+				typeof token.user !== typeof undefined &&
+				(typeof session.user === typeof undefined ||
+					(typeof session.user !== typeof undefined && typeof session.user.userId === typeof undefined))
+			) {
+				session.user = token.user
+			} else if (typeof token !== typeof undefined) {
+				session.token = token
+			}
+			return session
+		},
 		jwt: async ({ token, user }) => {
 			user && (token.user = user)
 			return token
-		},
-		session: async ({ session, token }) => {
-			token && (session.id = token.id)
-			return session
 		},
 	},
 	session: {
@@ -49,11 +73,11 @@ export const nextAuthOptions = {
 	},
 	secret: process.env.NEXTAUTH_SECRET,
 	jwt: {
-		maxAge: 7 * 24 * 30 * 60, // 7days
+		maxAge: 7 * 24 * 60 * 60,
 	},
 	pages: {
 		signIn: '/auth/login',
 		newUser: '/auth/signup',
 	},
-	// adapter: PrismaAdapter(prisma),
+	adapter: PrismaAdapter(prisma),
 }

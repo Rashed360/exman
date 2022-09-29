@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import Spinner from '../../components/Spinner'
 
 const Transaction = () => {
 	const router = useRouter()
@@ -7,7 +8,7 @@ const Transaction = () => {
 		router.push('/transaction/expense')
 	}, [router])
 
-	return <div>Loading</div>
+	return <Spinner />
 }
 
 export default Transaction
