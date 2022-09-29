@@ -10,7 +10,6 @@ import { VscThreeBars, VscPreview, VscDiffRemoved, VscSignOut } from 'react-icon
 
 const Navbar = () => {
 	const { status, data } = useSession()
-	console.log(data)
 	const { toggleLightMode } = useContext(ThemeContext)
 	const [sidebar, setSidebar] = useState(false)
 	const sidebarToggler = () => setSidebar(!sidebar)

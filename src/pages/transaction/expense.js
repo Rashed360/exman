@@ -6,8 +6,11 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { trpc } from '../../utils/trpc'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
+import { requireAuth } from '../../server/auth/requireAuth'
 
 const AddExpense = () => {
+	const { data: session } = useSession()
 	const { push } = useRouter()
 	const [showImages, setShowImages] = useState(false)
 	const [showTags, setShowTags] = useState(false)
@@ -28,6 +31,7 @@ const AddExpense = () => {
 	})
 
 	const {
+		reset,
 		register,
 		handleSubmit,
 		formState: { errors, touchedFields: touch },
@@ -36,7 +40,8 @@ const AddExpense = () => {
 	})
 
 	const onSubmit = values => {
-		mutate({ ...values, type: 'EXP' })
+		mutate({ ...values, type: 'EXP', user: session.user.id })
+		reset()
 	}
 
 	return (
@@ -130,7 +135,7 @@ const AddExpense = () => {
 										<p className='subTitle'>405KB</p>
 									</div>
 								</div>
-								<button>
+								<button type='button'>
 									<BiTrash />
 								</button>
 							</div>
@@ -142,7 +147,7 @@ const AddExpense = () => {
 										<p className='subTitle'>405KB</p>
 									</div>
 								</div>
-								<button>
+								<button type='button'>
 									<BiTrash />
 								</button>
 							</div>
@@ -156,7 +161,7 @@ const AddExpense = () => {
 							<label htmlFor=''>Add Tags</label>
 							<div className='inputGroup'>
 								<input type='text' placeholder='Salary' />
-								<button>Add</button>
+								<button type='button'>Add</button>
 							</div>
 						</div>
 						<div className='formGroup'>
@@ -164,14 +169,14 @@ const AddExpense = () => {
 								<div className='mini_tag'>
 									<BiPurchaseTag />
 									Salary
-									<button className='mini_cross'>
+									<button type='button' className='mini_cross'>
 										<BiX />
 									</button>
 								</div>
 								<div className='mini_tag'>
 									<BiPurchaseTag />
 									Bonus
-									<button className='mini_cross'>
+									<button type='button' className='mini_cross'>
 										<BiX />
 									</button>
 								</div>
@@ -190,3 +195,7 @@ const AddExpense = () => {
 	)
 }
 export default AddExpense
+
+export const getServerSideProps = requireAuth(async ctx => {
+	return { props: {} }
+})

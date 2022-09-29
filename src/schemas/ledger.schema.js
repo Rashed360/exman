@@ -7,6 +7,7 @@ export const addExpenseFormSchema = z.object({
 })
 
 export const addExpenseSchema = z.object({
+	user: z.string(),
 	type: z.enum(['EXP', 'INC']),
 	amount: z.number().positive(),
 	title: z.string().min(1).max(50),

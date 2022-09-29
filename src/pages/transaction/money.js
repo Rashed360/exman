@@ -2,10 +2,14 @@ import TransactionWrapper from '../../components/transaction/TransactionWrapper'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { addExpenseFormSchema } from '../../schemas/ledger.schema'
 import { BiPaperclip, BiPurchaseTag, BiTrash, BiX } from 'react-icons/bi'
+import { trpc } from '../../utils/trpc'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useSession } from 'next-auth/react'
+import { requireAuth } from '../../server/auth/requireAuth'
 
 const AddMoney = () => {
+	const { data: session } = useSession()
 	const [showImages, setShowImages] = useState(false)
 	const [showTags, setShowTags] = useState(false)
 
@@ -17,7 +21,15 @@ const AddMoney = () => {
 		}
 	}
 
+	const { mutate, error } = trpc.useMutation(['ledger.add-expense'], {
+		onSuccess: () => {
+			// push('/')
+			console.log('success')
+		},
+	})
+
 	const {
+		reset,
 		register,
 		handleSubmit,
 		formState: { errors, touchedFields: touch },
@@ -26,6 +38,8 @@ const AddMoney = () => {
 	})
 
 	const onSubmit = values => {
+		mutate({ ...values, type: 'INC', user: session.user.id })
+		reset()
 		console.log({ ...values, type: 'INC' })
 	}
 
@@ -33,6 +47,12 @@ const AddMoney = () => {
 		<TransactionWrapper expense={false}>
 			<form className='content' onSubmit={handleSubmit(onSubmit)}>
 				<p className='title'>Provide amount and title</p>
+
+				{error && (
+					<div className='formControl'>
+						<p className='error_msg'>{error.message}</p>
+					</div>
+				)}
 
 				<div className={`formControl${errors.amount ? ' error' : touch.amount ? ' okay' : ''}`}>
 					<label>
@@ -114,7 +134,7 @@ const AddMoney = () => {
 										<p className='subTitle'>405KB</p>
 									</div>
 								</div>
-								<button>
+								<button type='button'>
 									<BiTrash />
 								</button>
 							</div>
@@ -126,7 +146,7 @@ const AddMoney = () => {
 										<p className='subTitle'>405KB</p>
 									</div>
 								</div>
-								<button>
+								<button type='button'>
 									<BiTrash />
 								</button>
 							</div>
@@ -140,7 +160,7 @@ const AddMoney = () => {
 							<label htmlFor=''>Add Tags</label>
 							<div className='inputGroup'>
 								<input type='text' placeholder='Salary' />
-								<button>Add</button>
+								<button type='button'>Add</button>
 							</div>
 						</div>
 						<div className='formGroup'>
@@ -148,14 +168,14 @@ const AddMoney = () => {
 								<div className='mini_tag'>
 									<BiPurchaseTag />
 									Salary
-									<button className='mini_cross'>
+									<button type='button' className='mini_cross'>
 										<BiX />
 									</button>
 								</div>
 								<div className='mini_tag'>
 									<BiPurchaseTag />
 									Bonus
-									<button className='mini_cross'>
+									<button type='button' className='mini_cross'>
 										<BiX />
 									</button>
 								</div>
@@ -166,7 +186,7 @@ const AddMoney = () => {
 
 				<div className='formControl'>
 					<button type='submit' className='btn_primary'>
-						Add Expense
+						Add Money
 					</button>
 				</div>
 			</form>
@@ -174,3 +194,7 @@ const AddMoney = () => {
 	)
 }
 export default AddMoney
+
+export const getServerSideProps = requireAuth(async ctx => {
+	return { props: {} }
+})

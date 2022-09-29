@@ -133,15 +133,14 @@
 }
 .formGroup .mini_tag {
 	overflow: hidden;
-
 	display: flex;
 	gap: 5px;
 	align-items: center;
 	font-size: 0.75em;
 	padding: 2px 5px;
 	border-radius: 20px;
-	color: var(--shade5);
-	background: var(--shade0);
+	color: var(--shade0);
+	background: var(--shade2);
 }
 .formGroup .mini_tags button.mini_cross {
 	display: flex;
@@ -151,6 +150,8 @@
 	margin: -5px -3px -5px 0;
 	border-radius: 10px;
 	height: 100%;
+	color: var(--shade0);
+	background-color: var(--shade2);
 }
 .formGroup .mini_tags button.mini_cross:hover {
 	background: var(--shade1);
@@ -265,6 +266,7 @@
 	font-size: 0.75em;
 	padding: 2px 10px;
 	border-radius: 20px;
+	color: var(--shade5);
 	background: var(--shade1);
 }
 .formControl button.mini_button.active {
