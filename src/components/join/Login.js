@@ -19,7 +19,8 @@ const LoginForm = () => {
 
 	const onSubmit = async values => {
 		setLoading(true)
-		await signIn('credentials', { ...values, callbackUrl: '/' }).then(() => setLoading(false))
+		const signin = await signIn('credentials', { ...values, callbackUrl: '/' }).then(() => setLoading(false))
+		// console.log(signin)
 	}
 
 	return (
