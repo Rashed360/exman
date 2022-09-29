@@ -297,16 +297,20 @@
 	color: var(--shade1);
 }
 .formControl.okay input {
-	border-color: var(--accent);
+	border-color: var(--normal);
 }
 .formControl.okay ul {
-	color: var(--accent);
+	color: var(--normal);
 }
 .formControl.error input {
 	border-color: var(--danger);
 }
-.formControl.error ul {
+.formControl.error ul,
+.formControl.error ul li[role='alert'] {
 	color: var(--danger);
+}
+.formControl.error ul li[role='info'] {
+	color: var(--normal);
 }
 
 .notFound {

@@ -1,12 +1,14 @@
 import TransactionWrapper from '../../components/transaction/TransactionWrapper'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { addExpenseFormSchema } from '../../schemas/ledger.schema'
 import { BiPaperclip, BiPurchaseTag, BiTrash, BiX } from 'react-icons/bi'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 const AddMoney = () => {
-	const { register, handleSubmit } = useForm()
 	const [showImages, setShowImages] = useState(false)
 	const [showTags, setShowTags] = useState(false)
+
 	const toggler = show => {
 		if (show === 0) {
 			setShowImages(!showImages)
@@ -14,40 +16,79 @@ const AddMoney = () => {
 			setShowTags(!showTags)
 		}
 	}
+
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, touchedFields: touch },
+	} = useForm({
+		resolver: zodResolver(addExpenseFormSchema),
+	})
+
 	const onSubmit = values => {
 		console.log(values)
 	}
+
 	return (
 		<TransactionWrapper expense={false}>
 			<form className='content' onSubmit={handleSubmit(onSubmit)}>
 				<p className='title'>Provide amount and title</p>
 
-				<div className='formControl'>
-					<label htmlFor=''>
+				<div className={`formControl${errors.amount ? ' error' : touch.amount ? ' okay' : ''}`}>
+					<label>
 						Amount<span>*</span>
 					</label>
-					<input type='number' placeholder='99,999' {...register('amount')} />
+					<input
+						type='number'
+						placeholder='99,999'
+						{...register('amount', {
+							valueAsNumber: true,
+						})}
+					/>
+					{errors.amount && (
+						<ul>
+							<li role='alert'>{errors.amount.message}</li>
+						</ul>
+					)}
 				</div>
-				<div className='formControl'>
-					<label htmlFor=''>
+				<div className={`formControl${errors.title ? ' error' : touch.title ? ' okay' : ''}`}>
+					<label>
 						Title<span>*</span>
 					</label>
 					<input type='text' placeholder='Salary' {...register('title')} />
+					{errors.title && (
+						<ul>
+							<li role='alert'>{errors.title.message}</li>
+						</ul>
+					)}
 				</div>
-				<div className='formControl'>
-					<label htmlFor=''>Description</label>
+				<div className={`formControl${errors.description ? ' error' : touch.description ? ' okay' : ''}`}>
+					<label>Description</label>
 					<textarea placeholder='..money got from salary..' {...register('description')} />
+					{errors.description && (
+						<ul>
+							<li role='alert'>{errors.description.message}</li>
+						</ul>
+					)}
 				</div>
 
 				<div className='formGroup'>
 					<div className='formControl'>
-						<button className={`mini_button${showImages ? ' active' : ''}`} onClick={() => toggler(0)}>
+						<button
+							type='button'
+							className={`mini_button${showImages ? ' active' : ''}`}
+							onClick={() => toggler(0)}
+						>
 							<BiPaperclip />
 							Add Images
 						</button>
 					</div>
 					<div className='formControl'>
-						<button className={`mini_button${showTags ? ' active' : ''}`} onClick={() => toggler(1)}>
+						<button
+							type='button'
+							className={`mini_button${showTags ? ' active' : ''}`}
+							onClick={() => toggler(1)}
+						>
 							<BiPurchaseTag />
 							Add Tags
 						</button>
@@ -123,8 +164,8 @@ const AddMoney = () => {
 				)}
 
 				<div className='formControl'>
-					<button className='btn_primary' type='submit'>
-						Add Money
+					<button type='submit' className='btn_primary'>
+						Add Expense
 					</button>
 				</div>
 			</form>

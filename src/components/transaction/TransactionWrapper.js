@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 const TransactionWrapper = ({ children, expense }) => {
 	const { push } = useRouter()
 	return (
-		<Layout>
+		<Layout title={expense ? 'Add Expense' : 'Add Money'}>
 			<Navbar />
 			<PageContent withContainer>
 				<Section title={`Add ${expense ? 'expense' : 'money'} to your account`}>

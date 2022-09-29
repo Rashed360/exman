@@ -11,8 +11,9 @@ const SignUpForm = () => {
 		reset,
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, touchedFields: touch },
 	} = useForm({
+		mode: 'onChange',
 		resolver: zodResolver(signUpFormUserSchema),
 	})
 
@@ -73,7 +74,7 @@ const SignUpForm = () => {
 					)}
 				</div>
 
-				<div className={`formControl${errors.email ? ' error' : ''}`}>
+				<div className={`formControl${errors.email ? ' error' : touch.email ? ' okay' : ''}`}>
 					<label>Email Address</label>
 					<input
 						type='text'
@@ -84,11 +85,12 @@ const SignUpForm = () => {
 					{errors.email && (
 						<ul>
 							<li role='alert'>{errors.email.message}</li>
+							<li role='info'>Valid Example - user@example.com</li>
 						</ul>
 					)}
 				</div>
 
-				<div className={`formControl${errors.password ? ' error' : ''}`}>
+				<div className={`formControl${errors.password ? ' error' : touch.password ? ' okay' : ''}`}>
 					<label>Password</label>
 					<input
 						type='password'
@@ -99,6 +101,7 @@ const SignUpForm = () => {
 					{errors.password && (
 						<ul>
 							<li role='alert'>{errors.password.message}</li>
+							<li role='info'>Example - Abcde!@#$12345</li>
 						</ul>
 					)}
 				</div>
