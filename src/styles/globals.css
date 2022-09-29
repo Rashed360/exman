@@ -76,14 +76,15 @@ a {
 	--shade3: #333438;
 	--shade4: #2d2e32;
 	--shade5: #25262a;
-	--accent: #64f4ac;
+	--accent: #6fb1ff;
 	--danger: #eda5a5;
-	--normal: #6fb1ff;
+	--normal: #64f4ac;
 }
 .lightMode {
 	--shade0: #25262a;
 	--shade1: #656565;
 	--shade2: #919199;
+	--shade3: #dfdfdf;
 	--shade4: #fcfcfc;
 	--shade5: #f3f3f3;
 }

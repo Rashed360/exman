@@ -41,7 +41,18 @@ export const userRouter = createRouter()
 		},
 	})
 	.query('me', {
-		resolve: ({ ctx }) => {
-			return ctx.user
+		resolve: async ({ ctx }) => {
+			const user = await ctx.prisma.user.findUnique({
+				where: {
+					id: ctx.session.id,
+				},
+				select: {
+					fisrtName: true,
+					lastName: true,
+					email: true,
+					image: true,
+				},
+			})
+			return user
 		},
 	})

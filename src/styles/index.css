@@ -358,7 +358,7 @@
 	margin: 20px;
 	margin-top: 0;
 	padding: 10px;
-	background: #25262a;
+	background: var(--shade5);
 	border-radius: 20px;
 }
 .start_page .descSection h1 {

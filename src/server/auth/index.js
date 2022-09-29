@@ -30,29 +30,25 @@ export const nextAuthOptions = {
 				return {
 					id: user.id,
 					email: user.email,
+					fisrtName: user.fisrtName,
 				}
 			},
 		}),
 	],
 	callbacks: {
 		jwt: async ({ token, user }) => {
-			if (user) {
-				token.id = user.id
-				token.email = user.email
-			}
+			user && (token.user = user)
 			return token
 		},
 		session: async ({ session, token }) => {
-			if (token) {
-				session.id = token.id
-			}
+			token && (session.id = token.id)
+			session.user
 			return session
 		},
 	},
-	// adapter: PrismaAdapter(prisma),
-	// session: {
-	// 	strategy: 'jwt',
-	// },
+	session: {
+		strategy: 'jwt',
+	},
 	secret: process.env.NEXTAUTH_SECRET,
 	jwt: {
 		maxAge: 7 * 24 * 30 * 60, // 7days
@@ -61,4 +57,5 @@ export const nextAuthOptions = {
 		signIn: '/auth/login',
 		newUser: '/auth/signup',
 	},
+	// adapter: PrismaAdapter(prisma),
 }

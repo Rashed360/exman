@@ -9,7 +9,7 @@ import { useSession, signOut } from 'next-auth/react'
 import { VscThreeBars, VscPreview, VscDiffRemoved, VscSignOut } from 'react-icons/vsc'
 
 const Navbar = () => {
-	const { data } = useSession()
+	const { status, data } = useSession()
 	const { toggleLightMode } = useContext(ThemeContext)
 	const [sidebar, setSidebar] = useState(false)
 	const sidebarToggler = () => setSidebar(!sidebar)
@@ -37,14 +37,14 @@ const Navbar = () => {
 							</div>
 						</div>
 
-						{data && (
+						{status === 'authenticated' && (
 							<div className={style.section}>
 								<div className={style.profile}>
 									<div className={style.avatar} onClick={toggleLightMode}>
 										{false && <Image src='' layout='fill' alt='avatar' />}
 									</div>
 									<div className={style.info}>
-										<p>Rashed Ahmed</p>
+										<p>User Name</p>
 										<span>Regular User</span>
 									</div>
 								</div>
@@ -53,30 +53,7 @@ const Navbar = () => {
 
 						<div className={style.section}>
 							<div className={style.navItems}>
-								{data === null ? (
-									<>
-										<NavItem
-											name='Welcome'
-											link='/welcome'
-											icon={<VscDiffRemoved />}
-											toggle={sidebarToggler}
-										/>
-
-										<NavItem
-											name='Login'
-											link='/auth/login'
-											icon={<VscDiffRemoved />}
-											toggle={sidebarToggler}
-										/>
-
-										<NavItem
-											name='Sign Up'
-											link='/auth/signup'
-											icon={<VscDiffRemoved />}
-											toggle={sidebarToggler}
-										/>
-									</>
-								) : (
+								{status === 'authenticated' ? (
 									<>
 										<NavItem name='Dashboard' link='/' icon={<VscPreview />} toggle={sidebarToggler} />
 										<NavItem
@@ -117,6 +94,29 @@ const Navbar = () => {
 											<VscSignOut />
 											<span>Logout</span>
 										</div>
+									</>
+								) : (
+									<>
+										<NavItem
+											name='Welcome'
+											link='/welcome'
+											icon={<VscDiffRemoved />}
+											toggle={sidebarToggler}
+										/>
+
+										<NavItem
+											name='Login'
+											link='/auth/login'
+											icon={<VscDiffRemoved />}
+											toggle={sidebarToggler}
+										/>
+
+										<NavItem
+											name='Sign Up'
+											link='/auth/signup'
+											icon={<VscDiffRemoved />}
+											toggle={sidebarToggler}
+										/>
 									</>
 								)}
 							</div>
