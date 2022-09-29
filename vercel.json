@@ -9,7 +9,7 @@
                 },
                 {
                     "key": "Access-Control-Allow-Origin",
-                    "value": "exman.vercel.app"
+                    "value": "https://exman.vercel.app"
                 },
                 {
                     "key": "Access-Control-Allow-Methods",
