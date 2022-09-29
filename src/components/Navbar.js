@@ -5,9 +5,11 @@ import Link from 'next/link'
 import { useContext } from 'react'
 import { ThemeContext } from '../utils/ThemeContext'
 import { useState } from 'react'
+import { useSession, signOut } from 'next-auth/react'
 import { VscThreeBars, VscPreview, VscDiffRemoved, VscSignOut } from 'react-icons/vsc'
 
 const Navbar = () => {
+	const { data } = useSession()
 	const { toggleLightMode } = useContext(ThemeContext)
 	const [sidebar, setSidebar] = useState(false)
 	const sidebarToggler = () => setSidebar(!sidebar)
@@ -34,42 +36,92 @@ const Navbar = () => {
 								<VscThreeBars />
 							</div>
 						</div>
-						<div className={style.section}>
-							<div className={style.profile}>
-								<div className={style.avatar} onClick={toggleLightMode}>
-									{false && <Image src='' layout='fill' alt='avatar' />}
-								</div>
-								<div className={style.info}>
-									<p>Rashed Ahmed</p>
-									<span>Regular User</span>
+
+						{data && (
+							<div className={style.section}>
+								<div className={style.profile}>
+									<div className={style.avatar} onClick={toggleLightMode}>
+										{false && <Image src='' layout='fill' alt='avatar' />}
+									</div>
+									<div className={style.info}>
+										<p>Rashed Ahmed</p>
+										<span>Regular User</span>
+									</div>
 								</div>
 							</div>
-						</div>
+						)}
+
 						<div className={style.section}>
 							<div className={style.navItems}>
-								<NavItem name='Dashboard' link='/' icon={<VscPreview />} toggle={sidebarToggler} />
-								<NavItem
-									name='New Transaction'
-									link='/transaction'
-									icon={<VscDiffRemoved />}
-									toggle={sidebarToggler}
-								/>
-								<NavItem name='Plan Expense' link='/plan' icon={<VscDiffRemoved />} toggle={sidebarToggler} />
-								<NavItem
-									name='Statistics'
-									link='/statistics'
-									icon={<VscDiffRemoved />}
-									toggle={sidebarToggler}
-								/>
-								<NavItem
-									name='Generate Reports'
-									link='/reports'
-									icon={<VscDiffRemoved />}
-									toggle={sidebarToggler}
-								/>
-								<NavItem name='Logout' link='/auth' icon={<VscSignOut />} toggle={sidebarToggler} />
+								{data === null ? (
+									<>
+										<NavItem
+											name='Welcome'
+											link='/welcome'
+											icon={<VscDiffRemoved />}
+											toggle={sidebarToggler}
+										/>
+
+										<NavItem
+											name='Login'
+											link='/auth/login'
+											icon={<VscDiffRemoved />}
+											toggle={sidebarToggler}
+										/>
+
+										<NavItem
+											name='Sign Up'
+											link='/auth/signup'
+											icon={<VscDiffRemoved />}
+											toggle={sidebarToggler}
+										/>
+									</>
+								) : (
+									<>
+										<NavItem name='Dashboard' link='/' icon={<VscPreview />} toggle={sidebarToggler} />
+										<NavItem
+											name='New Transaction'
+											link='/transaction'
+											icon={<VscDiffRemoved />}
+											toggle={sidebarToggler}
+										/>
+
+										<NavItem
+											name='Plan Expense'
+											link='/plan'
+											icon={<VscDiffRemoved />}
+											toggle={sidebarToggler}
+										/>
+
+										<NavItem
+											name='Statistics'
+											link='/statistics'
+											icon={<VscDiffRemoved />}
+											toggle={sidebarToggler}
+										/>
+
+										<NavItem
+											name='Generate Reports'
+											link='/reports'
+											icon={<VscDiffRemoved />}
+											toggle={sidebarToggler}
+										/>
+
+										<div
+											className={style.navItem}
+											onClick={() => {
+												sidebarToggler()
+												signOut({ callbackUrl: '/' })
+											}}
+										>
+											<VscSignOut />
+											<span>Logout</span>
+										</div>
+									</>
+								)}
 							</div>
 						</div>
+
 						<div className={style.sidebarFooter}>
 							<div className={style.section}>
 								<p>EXMAN &copy; 2022. All Rights Reserved</p>
