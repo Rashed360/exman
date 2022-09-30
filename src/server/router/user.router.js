@@ -33,7 +33,7 @@ export const userRouter = createRouter()
 						})
 					}
 				}
-				console.debug(e)
+				console.log(e)
 				throw new trpc.TRPCError({
 					code: 'INTERNAL_SERVER_ERROR',
 					message: 'Something went wrong',

@@ -28,7 +28,7 @@ export const ledgerRouter = createRouter()
 					result: ledger.title,
 				}
 			} catch (e) {
-				console.debug(e)
+				console.log(e)
 				throw new trpc.TRPCError({
 					code: 'INTERNAL_SERVER_ERROR',
 					message: 'Something went wrong',

@@ -1,25 +1,55 @@
 import TransactionWrapper from '../../components/transaction/TransactionWrapper'
+import CardDisplayImage from '../../components/transaction/CardDisplayImage'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { addExpenseFormSchema } from '../../schemas/ledger.schema'
-import { BiPaperclip, BiPurchaseTag, BiTrash, BiX } from 'react-icons/bi'
-import { useState } from 'react'
+import { BiPaperclip, BiPurchaseTag, BiX } from 'react-icons/bi'
+import { useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { trpc } from '../../utils/trpc'
+import { storage } from '../../utils/firebase'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { v4 } from 'uuid'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { requireAuth } from '../../server/auth/requireAuth'
+import CardMiniTag from '../../components/transaction/CardMiniTag'
 
 const AddExpense = () => {
 	const { data: session } = useSession()
 	const { push } = useRouter()
 	const [showImages, setShowImages] = useState(false)
 	const [showTags, setShowTags] = useState(false)
+	const [selectedImageList, setSelectedImageList] = useState([])
+	const [selectedTagList, setSelectedTagList] = useState([])
+	const [currentTag, setCurrentTag] = useState(null)
+	const [currentImage, setCurrentImage] = useState(null)
+	const [noImageError, setNoImageError] = useState(false)
+	const imageRef = useRef()
 
 	const toggler = show => {
 		if (show === 0) {
 			setShowImages(!showImages)
 		} else if (show === 1) {
 			setShowTags(!showTags)
+		}
+	}
+
+	const uploadImageToStorage = async () => {
+		if (!currentImage) {
+			setNoImageError({ msg: 'No image selected.' })
+		} else if (selectedImageList.length >= 2) {
+			setNoImageError({ msg: 'Ony 2 images are allowed.' })
+			imageRef.current.value = ''
+		} else {
+			setNoImageError(false)
+			const imgRef = ref(storage, session.user.id + '/' + v4())
+			uploadBytes(imgRef, currentImage).then(snapshot => {
+				getDownloadURL(snapshot.ref).then(url => {
+					setSelectedImageList(prev => [...prev, { url, name: currentImage.name, size: currentImage.size }])
+					setCurrentImage(null)
+				})
+			})
+			imageRef.current.value = ''
 		}
 	}
 
@@ -102,7 +132,7 @@ const AddExpense = () => {
 							onClick={() => toggler(0)}
 						>
 							<BiPaperclip />
-							Add Images
+							{selectedImageList.length > 0 ? 'Added Images x' + selectedImageList.length : 'Add Images'}
 						</button>
 					</div>
 					<div className='formControl'>
@@ -112,45 +142,41 @@ const AddExpense = () => {
 							onClick={() => toggler(1)}
 						>
 							<BiPurchaseTag />
-							Add Tags
+
+							{selectedTagList.length > 0 ? 'Added Tags x' + selectedTagList.length : 'Add Tags'}
 						</button>
 					</div>
 				</div>
 
 				{showImages && (
 					<div className='formSection'>
-						<div className='formControl'>
+						<div className={`formControl${noImageError ? ' error' : ''}`}>
 							<label htmlFor=''>Add Image</label>
-							<input type='file' />
+							<div className='inputGroup'>
+								<input
+									className='upload'
+									type='file'
+									accept='image/*'
+									onChange={e => {
+										setCurrentImage(e.currentTarget.files[0])
+										setNoImageError(false)
+									}}
+									ref={imageRef}
+								/>
+								<button type='button' onClick={uploadImageToStorage}>
+									Add
+								</button>
+							</div>
 							<ul>
-								<li>02 image(s) added.</li>
+								{noImageError && <li role='alert'>{noImageError.msg}</li>}
+								<li role='info'>{selectedImageList.length} image(s) added.</li>
 							</ul>
 						</div>
+
 						<div className='formGroup vertical'>
-							<div className='display_image'>
-								<div className='image_box'>
-									<div className='image'>{/* <img src='' alt='' /> */}</div>
-									<div className='text_group'>
-										<p>20220920_18426.jpg</p>
-										<p className='subTitle'>405KB</p>
-									</div>
-								</div>
-								<button type='button'>
-									<BiTrash />
-								</button>
-							</div>
-							<div className='display_image'>
-								<div className='image_box'>
-									<div className='image'>{/* <img src='' alt='' /> */}</div>
-									<div className='text_group'>
-										<p>20220920_18427.jpg</p>
-										<p className='subTitle'>405KB</p>
-									</div>
-								</div>
-								<button type='button'>
-									<BiTrash />
-								</button>
-							</div>
+							{selectedImageList.map((img, idx) => (
+								<CardDisplayImage image={img} key={idx} />
+							))}
 						</div>
 					</div>
 				)}
@@ -160,28 +186,32 @@ const AddExpense = () => {
 						<div className='formControl'>
 							<label htmlFor=''>Add Tags</label>
 							<div className='inputGroup'>
-								<input type='text' placeholder='Salary' />
-								<button type='button'>Add</button>
+								<input
+									type='text'
+									placeholder='Salary'
+									value={currentTag}
+									onChange={e => setCurrentTag(e.target.value)}
+								/>
+								<button
+									type='button'
+									onClick={() => {
+										setSelectedTagList(prev => [...prev, currentTag])
+										setCurrentTag('')
+									}}
+								>
+									Add
+								</button>
 							</div>
 						</div>
-						<div className='formGroup'>
-							<div className='mini_tags'>
-								<div className='mini_tag'>
-									<BiPurchaseTag />
-									Salary
-									<button type='button' className='mini_cross'>
-										<BiX />
-									</button>
-								</div>
-								<div className='mini_tag'>
-									<BiPurchaseTag />
-									Bonus
-									<button type='button' className='mini_cross'>
-										<BiX />
-									</button>
+						{selectedTagList.length > 0 && (
+							<div className='formGroup'>
+								<div className='mini_tags'>
+									{selectedTagList.map((tag, idx) => (
+										<CardMiniTag tag={tag} key={idx} />
+									))}
 								</div>
 							</div>
-						</div>
+						)}
 					</div>
 				)}
 

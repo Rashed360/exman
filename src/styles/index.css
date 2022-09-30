@@ -28,7 +28,7 @@
 	text-align: right;
 }
 .card h1.card__amount {
-	margin-top: -5px;
+	margin-top: -20px;
 }
 .card--positive {
 	background: var(--accent);
@@ -59,7 +59,7 @@
 }
 
 .section {
-	padding-bottom: 20px;
+	padding-bottom: 0;
 }
 .section__title {
 	padding-bottom: 20px;
@@ -71,6 +71,7 @@
 	background: var(--shade5);
 	border-radius: 20px;
 	padding-bottom: 10px;
+	margin-bottom: 20px;
 }
 .window_pane .heading {
 	display: flex;
@@ -126,7 +127,9 @@
 	padding-top: 5px;
 }
 .formGroup .mini_tags {
+	width: 100%;
 	display: flex;
+	flex-wrap: wrap;
 	gap: 5px;
 	flex-direction: row;
 	margin-top: 10px;
@@ -141,6 +144,9 @@
 	border-radius: 20px;
 	color: var(--shade0);
 	background: var(--shade2);
+}
+.formGroup .mini_tag p {
+	overflow: hidden;
 }
 .formGroup .mini_tags button.mini_cross {
 	display: flex;
@@ -178,10 +184,19 @@
 	flex-direction: row;
 }
 .display_image .image_box .image {
-	width: 2.75em;
-	height: 2.75em;
+	position: relative;
+	overflow: hidden;
+	min-width: 50px;
+	max-width: 50px;
+	height: 50px;
 	background-color: var(--shade4);
 }
+.display_image .image_box .image img {
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+	width: 100%;
+}
+
 .display_image .text_group {
 	display: flex;
 	flex-direction: column;
@@ -197,6 +212,7 @@
 	flex: 1;
 	background-color: var(--shade1);
 }
+.formControl .inputGroup .selectImageButton input:first-child,
 .formControl .inputGroup button:first-child,
 .formControl .inputGroup input:first-child {
 	border-bottom-right-radius: 0;
@@ -209,6 +225,9 @@
 }
 .formControl {
 	padding-top: 10px;
+}
+.formControl input.upload::-webkit-file-upload-button {
+	display: none;
 }
 .formControl p.error_msg {
 	font-size: 0.85em;
