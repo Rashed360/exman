@@ -1,6 +1,6 @@
 import { createRouter } from '../context'
 import * as trpc from '@trpc/server'
-import { addExpenseSchema } from '../../schemas/ledger.schema'
+import { addExpenseSchema, getAllLedgerSchema } from '../../schemas/ledger.schema'
 
 export const ledgerRouter = createRouter()
 	.mutation('add-expense', {
@@ -37,10 +37,15 @@ export const ledgerRouter = createRouter()
 		},
 	})
 	.query('get-all', {
+		input: getAllLedgerSchema,
 		resolve: async ({ ctx, input }) => {
-			const {} = input
+			const { userId } = input
 			try {
-				return true
+				return ctx.prisma.ledger.findMany({
+					where: {
+						userId,
+					},
+				})
 			} catch (e) {
 				throw new trpc.TRPCError({
 					code: 'INTERNAL_SERVER_ERROR',

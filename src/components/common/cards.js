@@ -17,17 +17,24 @@ export const CardInfo = ({ title, amount, positive, negative, nutral }) => {
 	)
 }
 
-export const CardActivity = ({ description, amount, positive, negative, nutral }) => {
-	const type = () => {
-		if (positive) return 'card--positive_line'
-		else if (negative) return 'card--negative_line'
-		else if (nutral) return 'card--nutral_line'
+export const CardActivity = ({ description, amount, type }) => {
+	const cardType = () => {
+		if (type === 'INC') return 'card--positive_line'
+		else if (type === 'EXP') return 'card--negative_line'
 		else return ''
 	}
 	return (
-		<div className={'card activity ' + type()}>
+		<div className={'card activity ' + cardType()}>
 			<p className='card__desc'>{description}</p>
 			<h1>{amount}</h1>
+		</div>
+	)
+}
+
+export const CardLoading = ({ data }) => {
+	return (
+		<div className='card activity'>
+			<p className='card__desc'>{data}</p>
 		</div>
 	)
 }

@@ -1,6 +1,7 @@
 import TransactionWrapper from '../../components/transaction/TransactionWrapper'
 import CardDisplayImage from '../../components/transaction/CardDisplayImage'
 import CardMiniTag from '../../components/transaction/CardMiniTag'
+import Spinner from '../../components/Spinner'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { addExpenseFormSchema } from '../../schemas/ledger.schema'
 import { BiPaperclip, BiPurchaseTag } from 'react-icons/bi'
@@ -15,8 +16,8 @@ import { useSession } from 'next-auth/react'
 import { requireAuth } from '../../server/auth/requireAuth'
 
 const AddExpense = () => {
-	const { data: session } = useSession()
 	const { push } = useRouter()
+	const { data: session } = useSession()
 	const [showImages, setShowImages] = useState(false)
 	const [showTags, setShowTags] = useState(false)
 	const [selectedImageList, setSelectedImageList] = useState([])
@@ -66,10 +67,9 @@ const AddExpense = () => {
 		}
 	}
 
-	const { mutate, error } = trpc.useMutation(['ledger.add-expense'], {
+	const { mutate, error, isLoading } = trpc.useMutation(['ledger.add-expense'], {
 		onSuccess: () => {
-			// push('/')
-			console.log('success')
+			push('/transaction')
 		},
 	})
 
@@ -89,6 +89,7 @@ const AddExpense = () => {
 
 	return (
 		<TransactionWrapper expense={true}>
+			{isLoading && <Spinner />}
 			<form className='content' onSubmit={handleSubmit(onSubmit)}>
 				<p className='title'>Provide amount and title</p>
 

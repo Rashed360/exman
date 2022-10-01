@@ -1,14 +1,17 @@
 import TransactionWrapper from '../../components/transaction/TransactionWrapper'
+import Spinner from '../../components/Spinner'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { addExpenseFormSchema } from '../../schemas/ledger.schema'
 import { BiPaperclip, BiPurchaseTag, BiTrash, BiX } from 'react-icons/bi'
 import { trpc } from '../../utils/trpc'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { requireAuth } from '../../server/auth/requireAuth'
 
 const AddMoney = () => {
+	const { push } = useRouter()
 	const { data: session } = useSession()
 	const [showImages, setShowImages] = useState(false)
 	const [showTags, setShowTags] = useState(false)
@@ -21,10 +24,9 @@ const AddMoney = () => {
 		}
 	}
 
-	const { mutate, error } = trpc.useMutation(['ledger.add-expense'], {
+	const { mutate, error, isLoading } = trpc.useMutation(['ledger.add-expense'], {
 		onSuccess: () => {
-			// push('/')
-			console.log('success')
+			push('/transaction')
 		},
 	})
 
@@ -40,11 +42,11 @@ const AddMoney = () => {
 	const onSubmit = values => {
 		mutate({ ...values, type: 'INC', user: session.user.id })
 		reset()
-		console.log({ ...values, type: 'INC' })
 	}
 
 	return (
 		<TransactionWrapper expense={false}>
+			{isLoading && <Spinner />}
 			<form className='content' onSubmit={handleSubmit(onSubmit)}>
 				<p className='title'>Provide amount and title</p>
 

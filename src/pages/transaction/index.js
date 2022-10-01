@@ -2,14 +2,19 @@ import Layout from '../../components/Layout'
 import Navbar from '../../components/Navbar'
 import PageContent from '../../components/common/PageContent'
 import Section from '../../components/common/Section'
+import { trpc } from '../../utils/trpc'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 import { requireAuth } from '../../server/auth/requireAuth'
 import { CardsContainer, CardActivity } from '../../components/common/cards'
 import { useState } from 'react'
 
 const Transaction = () => {
-	const [showFilter, setShowFilter] = useState(false)
 	const { push } = useRouter()
+	const { data: session } = useSession()
+	const userId = session?.user?.id
+	const { data, isLoading } = trpc.useQuery(['ledger.get-all', { userId }])
+	const [showFilter, setShowFilter] = useState(false)
 
 	return (
 		<Layout>
@@ -30,9 +35,15 @@ const Transaction = () => {
 				>
 					{showFilter && <div className='filters'>Filter Control</div>}
 					<CardsContainer>
-						<CardActivity positive description='Lorem ipsum dolor, sit amet consecte.' amount='99,999' />
-						<CardActivity negative description='Facere fugi, ipsum ut aut maxime...' amount='99,999' />
-						<CardActivity nutral description='Suscipit quisquam voluptati expedita.' amount='99,999' />
+						{isLoading ? (
+							<CardLoading data='Loading...' />
+						) : data.length === 0 ? (
+							<CardLoading data='No activities yet!' />
+						) : (
+							data.map(item => (
+								<CardActivity type={item.type} description={item.title} amount={item.amount} />
+							))
+						)}
 					</CardsContainer>
 				</Section>
 			</PageContent>
