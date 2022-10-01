@@ -1,8 +1,9 @@
 import TransactionWrapper from '../../components/transaction/TransactionWrapper'
 import CardDisplayImage from '../../components/transaction/CardDisplayImage'
+import CardMiniTag from '../../components/transaction/CardMiniTag'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { addExpenseFormSchema } from '../../schemas/ledger.schema'
-import { BiPaperclip, BiPurchaseTag, BiX } from 'react-icons/bi'
+import { BiPaperclip, BiPurchaseTag } from 'react-icons/bi'
 import { useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { trpc } from '../../utils/trpc'
@@ -12,7 +13,6 @@ import { v4 } from 'uuid'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { requireAuth } from '../../server/auth/requireAuth'
-import CardMiniTag from '../../components/transaction/CardMiniTag'
 
 const AddExpense = () => {
 	const { data: session } = useSession()
@@ -21,9 +21,10 @@ const AddExpense = () => {
 	const [showTags, setShowTags] = useState(false)
 	const [selectedImageList, setSelectedImageList] = useState([])
 	const [selectedTagList, setSelectedTagList] = useState([])
-	const [currentTag, setCurrentTag] = useState(null)
+	const [currentTag, setCurrentTag] = useState('')
 	const [currentImage, setCurrentImage] = useState(null)
 	const [noImageError, setNoImageError] = useState(false)
+	const [noTagError, setNoTagError] = useState(false)
 	const imageRef = useRef()
 
 	const toggler = show => {
@@ -50,6 +51,18 @@ const AddExpense = () => {
 				})
 			})
 			imageRef.current.value = ''
+		}
+	}
+
+	const addTagToLedger = () => {
+		if (currentTag === '') {
+			setNoTagError({ msg: 'Tag cannot be empty.' })
+		} else if (currentTag.length > 15) {
+			setNoTagError({ msg: 'Tag cannot be that long.' })
+		} else {
+			setNoTagError(false)
+			setSelectedTagList(prev => [...prev, currentTag])
+			setCurrentTag('')
 		}
 	}
 
@@ -183,7 +196,7 @@ const AddExpense = () => {
 
 				{showTags && (
 					<div className='formSection'>
-						<div className='formControl'>
+						<div className={`formControl${noTagError ? ' error' : ''}`}>
 							<label htmlFor=''>Add Tags</label>
 							<div className='inputGroup'>
 								<input
@@ -192,16 +205,15 @@ const AddExpense = () => {
 									value={currentTag}
 									onChange={e => setCurrentTag(e.target.value)}
 								/>
-								<button
-									type='button'
-									onClick={() => {
-										setSelectedTagList(prev => [...prev, currentTag])
-										setCurrentTag('')
-									}}
-								>
+								<button type='button' onClick={addTagToLedger}>
 									Add
 								</button>
 							</div>
+							{noTagError && (
+								<ul>
+									<li role='alert'>{noTagError.msg}</li>
+								</ul>
+							)}
 						</div>
 						{selectedTagList.length > 0 && (
 							<div className='formGroup'>

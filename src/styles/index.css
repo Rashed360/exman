@@ -62,8 +62,21 @@
 	padding-bottom: 0;
 }
 .section__title {
+	display: flex;
+	justify-content: space-between;
 	padding-bottom: 20px;
 	font-size: 16px;
+}
+.section__title {
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 20px;
+	font-size: 16px;
+}
+.section__title p.clickable {
+	cursor: pointer;
+	user-select: none;
+	color: var(--accent);
 }
 
 .window_pane {
@@ -109,6 +122,29 @@
 	font-weight: 400;
 	font-size: 12px;
 	color: var(--shade1);
+}
+
+.buttons {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 20px;
+}
+.buttons button {
+	cursor: pointer;
+	user-select: none;
+	font-weight: 500;
+	color: var(--shade0);
+	border: 1px solid var(--shade4);
+	background: var(--shade5);
+}
+.buttons button.btn_primary {
+	background: var(--accent);
+}
+.buttons button.btn_success {
+	background: var(--normal);
+}
+.buttons button.btn_danger {
+	background: var(--danger);
 }
 
 .formSection {
@@ -246,10 +282,10 @@
 .formControl label span {
 	color: var(--accent);
 }
+.buttons button,
 .formControl input,
 .formControl button,
 .formControl textarea {
-	width: 100%;
 	padding: 10px 20px;
 	font-family: 'Poppins';
 	font-style: normal;
@@ -259,6 +295,7 @@
 }
 .formControl input,
 .formControl textarea {
+	width: 100%;
 	border: 1px solid var(--shade1);
 	color: var(--shade0);
 	background: var(--shade4);
@@ -270,6 +307,7 @@
 	min-height: 50px;
 }
 .formControl button.btn_primary {
+	width: 100%;
 	cursor: pointer;
 	margin-top: 10px;
 	user-select: none;
@@ -291,10 +329,12 @@
 .formControl button.mini_button.active {
 	background: var(--shade0);
 }
+.buttons button:hover,
 .display_image button:hover,
 .formControl button:hover {
 	filter: brightness(1.125);
 }
+.buttons button:active,
 .display_image button:active,
 .formControl button:active {
 	filter: brightness(0.925);

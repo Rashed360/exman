@@ -57,7 +57,7 @@ const Navbar = () => {
 									<>
 										<NavItem name='Dashboard' link='/' icon={<VscPreview />} toggle={sidebarToggler} />
 										<NavItem
-											name='New Transaction'
+											name='Transaction'
 											link='/transaction'
 											icon={<VscDiffRemoved />}
 											toggle={sidebarToggler}
