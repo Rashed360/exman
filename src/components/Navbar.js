@@ -44,7 +44,11 @@ const Navbar = () => {
 										{data.user.image && <Image src={data.user.image} layout='fill' alt='avatar' />}
 									</div>
 									<div className={style.info}>
-										<p>{data.user.firstName + ' ' + data.user.lastName || 'User Name'}</p>
+										<p>
+											{data.user.name
+												? data.user.name
+												: data.user.firstName + ' ' + data.user.lastName || 'User Name'}
+										</p>
 										<span>{data.user.email || 'Regular User'}</span>
 									</div>
 								</div>
