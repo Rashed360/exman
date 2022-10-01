@@ -6,7 +6,7 @@ import { trpc } from '../../utils/trpc'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { requireAuth } from '../../server/auth/requireAuth'
-import { CardsContainer, CardActivity } from '../../components/common/cards'
+import { CardsContainer, CardActivity, CardLoading } from '../../components/common/cards'
 import { useState } from 'react'
 
 const Transaction = () => {
@@ -41,7 +41,7 @@ const Transaction = () => {
 							<CardLoading data='No transactions yet!' />
 						) : (
 							data.map(item => (
-								<CardActivity type={item.type} description={item.title} amount={item.amount} />
+								<CardActivity key={item.id} type={item.type} description={item.title} amount={item.amount} />
 							))
 						)}
 					</CardsContainer>

@@ -31,7 +31,7 @@ const Home = () => {
 							<CardLoading data='No activities yet!' />
 						) : (
 							data.map(item => (
-								<CardActivity type={item.type} description={item.title} amount={item.amount} />
+								<CardActivity key={item.id} type={item.type} description={item.title} amount={item.amount} />
 							))
 						)}
 					</CardsContainer>
