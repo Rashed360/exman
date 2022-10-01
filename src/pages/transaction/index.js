@@ -36,9 +36,9 @@ const Transaction = () => {
 					{showFilter && <div className='filters'>Filter Control</div>}
 					<CardsContainer>
 						{isLoading ? (
-							<CardLoading data='Loading...' />
+							<CardLoading data='Loading Transactions...' />
 						) : data.length === 0 ? (
-							<CardLoading data='No activities yet!' />
+							<CardLoading data='No transactions yet!' />
 						) : (
 							data.map(item => (
 								<CardActivity type={item.type} description={item.title} amount={item.amount} />

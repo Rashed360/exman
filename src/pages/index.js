@@ -26,7 +26,7 @@ const Home = () => {
 				<Section title='Recent Activities' subTitle='Show All' subTitleClick={() => push('/transaction')}>
 					<CardsContainer>
 						{isLoading ? (
-							<CardLoading data='Loading...' />
+							<CardLoading data='Loading Activities...' />
 						) : data.length === 0 ? (
 							<CardLoading data='No activities yet!' />
 						) : (
