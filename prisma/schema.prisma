@@ -18,6 +18,7 @@ model User {
   ledger    Ledger[]
   account   Account[]
   session   Session[]
+  plan      Plan[]
 }
 
 model Ledger {
@@ -45,6 +46,7 @@ model LedgerImage {
   ledger   Ledger @relation(fields: [ledgerId], references: [id], onDelete: Cascade)
   ledgerId String
   url      String
+  name     String
 }
 
 model LedgerTag {
@@ -52,6 +54,28 @@ model LedgerTag {
   ledger   Ledger @relation(fields: [ledgerId], references: [id], onDelete: Cascade)
   ledgerId String
   title    String
+}
+
+model Plan {
+  id        String         @id @default(cuid())
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  title     String
+  budget    Float
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  estimate  PlanEstimate[]
+}
+
+model PlanEstimate {
+  id        String   @id @default(cuid())
+  plan      Plan     @relation(fields: [planId], references: [id], onDelete: Cascade)
+  planId    String
+  title     String
+  guess     Float
+  actual    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 //----> Next-Auth Models <----//
