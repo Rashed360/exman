@@ -45,6 +45,9 @@ export const ledgerRouter = createRouter()
 					where: {
 						userId,
 					},
+					orderBy: {
+						createdAt: 'desc',
+					},
 				})
 			} catch (e) {
 				throw new trpc.TRPCError({
