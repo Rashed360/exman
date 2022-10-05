@@ -156,7 +156,6 @@ const AddExpense = () => {
 							onClick={() => toggler(1)}
 						>
 							<BiPurchaseTag />
-
 							{selectedTagList.length > 0 ? 'Added Tags x' + selectedTagList.length : 'Add Tags'}
 						</button>
 					</div>
@@ -186,7 +185,6 @@ const AddExpense = () => {
 								<li role='info'>{selectedImageList.length} image(s) added.</li>
 							</ul>
 						</div>
-
 						<div className='formGroup vertical'>
 							{selectedImageList.map((img, idx) => (
 								<CardDisplayImage image={img} key={idx} />
@@ -227,7 +225,6 @@ const AddExpense = () => {
 						)}
 					</div>
 				)}
-
 				<div className='formControl'>
 					<button type='submit' className='btn_primary'>
 						Add Expense
