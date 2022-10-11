@@ -1,3 +1,4 @@
+import 'react-slideshow-image/dist/styles.css'
 import '../styles/globals.css'
 import '../styles/index.css'
 import { ThemeContextProvider } from '../utils/ThemeContext'
