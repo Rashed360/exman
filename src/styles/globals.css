@@ -103,7 +103,7 @@ body {
 .window {
 	position: relative;
 	background-color: var(--shade4);
-	width: 22.5em;
+	aspect-ratio: 9/16;
 	height: 100vh;
 	overflow: hidden;
 	overflow-y: scroll;

@@ -1,3 +1,5 @@
+import CountUp from 'react-countup'
+
 export const CardsContainer = ({ children }) => {
 	return <div className='cards'>{children}</div>
 }
@@ -12,7 +14,9 @@ export const CardInfo = ({ title, amount, positive, negative, nutral }) => {
 	return (
 		<div className={'card ' + type()}>
 			<p className='card__title'>{title}</p>
-			<h1 className='card__amount'>{amount}</h1>
+			<h1 className='card__amount'>
+				<CountUp duration={1} end={amount} />
+			</h1>
 		</div>
 	)
 }

@@ -33,6 +33,7 @@ CREATE TABLE "LedgerImage" (
     "id" TEXT NOT NULL,
     "ledgerId" TEXT NOT NULL,
     "url" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
 
     CONSTRAINT "LedgerImage_pkey" PRIMARY KEY ("id")
 );
@@ -44,6 +45,31 @@ CREATE TABLE "LedgerTag" (
     "title" TEXT NOT NULL,
 
     CONSTRAINT "LedgerTag_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Plan" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "budget" DOUBLE PRECISION NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Plan_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "PlanEstimate" (
+    "id" TEXT NOT NULL,
+    "planId" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "guess" DOUBLE PRECISION NOT NULL,
+    "actual" DOUBLE PRECISION NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "PlanEstimate_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -104,6 +130,12 @@ ALTER TABLE "LedgerImage" ADD CONSTRAINT "LedgerImage_ledgerId_fkey" FOREIGN KEY
 
 -- AddForeignKey
 ALTER TABLE "LedgerTag" ADD CONSTRAINT "LedgerTag_ledgerId_fkey" FOREIGN KEY ("ledgerId") REFERENCES "Ledger"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Plan" ADD CONSTRAINT "Plan_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "PlanEstimate" ADD CONSTRAINT "PlanEstimate_planId_fkey" FOREIGN KEY ("planId") REFERENCES "Plan"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
