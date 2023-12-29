@@ -6,7 +6,7 @@ export const ledgerRouter = createRouter()
 	.mutation('add-expense', {
 		input: addExpenseSchema,
 		resolve: async ({ ctx, input }) => {
-			const { amount, title, description, type, user } = input
+			const { amount, title, description, images = [], tags = [], type, user } = input
 			try {
 				const ledger = await ctx.prisma.ledger.create({
 					data: {
@@ -22,6 +22,29 @@ export const ledgerRouter = createRouter()
 						},
 					},
 				})
+				if (images && images?.length > 0) {
+					images.forEach(async image => {
+						await ctx.prisma.ledgerImage.create({
+							data: {
+								ledgerId: ledger.id,
+								url: image.url,
+								name: image.name,
+							},
+						})
+					})
+				}
+				if (tags && tags?.length > 0) {
+					tags.forEach(async tag => {
+						const singleTag = await ctx.prisma.ledgerTag.create({
+							data: {
+								ledgerId: ledger.id,
+								title: tag,
+							},
+						})
+						console.log('tag: ', singleTag)
+					})
+				}
+
 				return {
 					status: 201,
 					message: `Ledger : ${type === 'EXP' ? 'Expense' : 'Money'} Added`,
@@ -44,6 +67,10 @@ export const ledgerRouter = createRouter()
 				return ctx.prisma.ledger.findMany({
 					where: {
 						userId,
+					},
+					include: {
+						images: true,
+						tags: true,
 					},
 					orderBy: {
 						createdAt: 'desc',

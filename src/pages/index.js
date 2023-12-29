@@ -42,9 +42,7 @@ const Home = () => {
 						) : data.length === 0 ? (
 							<CardLoading data='No activities yet!' />
 						) : (
-							data.map(item => (
-								<CardActivity key={item.id} type={item.type} description={item.title} amount={item.amount} />
-							))
+							data.map(item => <CardActivity key={item.id} item={item} />)
 						)}
 					</CardsContainer>
 				</Section>

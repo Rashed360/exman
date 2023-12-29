@@ -12,6 +12,15 @@ export const addExpenseSchema = z.object({
 	amount: z.number().positive(),
 	title: z.string().min(1).max(50),
 	description: z.string().max(500).optional(),
+	images: z
+		.array(
+			z.object({
+				url: z.string(),
+				name: z.string(),
+			})
+		)
+		.optional(),
+	tags: z.array(z.string()),
 })
 
 export const getAllLedgerSchema = z.object({

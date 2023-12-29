@@ -1,10 +1,3 @@
-import TransactionWrapper from '../../components/transaction/TransactionWrapper'
-import CardDisplayImage from '../../components/transaction/CardDisplayImage'
-import CardMiniTag from '../../components/transaction/CardMiniTag'
-import Spinner from '../../components/Spinner'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { addExpenseFormSchema } from '../../schemas/ledger.schema'
-import { BiPaperclip, BiPurchaseTag } from 'react-icons/bi'
 import { useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { trpc } from '../../utils/trpc'
@@ -14,6 +7,13 @@ import { v4 } from 'uuid'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { requireAuth } from '../../server/auth/requireAuth'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { addExpenseFormSchema } from '../../schemas/ledger.schema'
+import { BiPaperclip, BiPurchaseTag } from 'react-icons/bi'
+import TransactionWrapper from '../../components/transaction/TransactionWrapper'
+import CardDisplayImage from '../../components/transaction/CardDisplayImage'
+import CardMiniTag from '../../components/transaction/CardMiniTag'
+import Spinner from '../../components/Spinner'
 
 const AddExpense = () => {
 	const { push } = useRouter()
@@ -67,7 +67,11 @@ const AddExpense = () => {
 		}
 	}
 
-	const { mutate, error, isLoading } = trpc.useMutation(['ledger.add-expense'], {
+	const {
+		mutate: addExpense,
+		error,
+		isLoading,
+	} = trpc.useMutation(['ledger.add-expense'], {
 		onSuccess: () => {
 			push('/transaction')
 		},
@@ -83,7 +87,13 @@ const AddExpense = () => {
 	})
 
 	const onSubmit = values => {
-		mutate({ ...values, type: 'EXP', user: session.user.id })
+		addExpense({
+			...values,
+			images: selectedImageList,
+			tags: selectedTagList,
+			type: 'EXP',
+			user: session.user.id,
+		})
 		reset()
 	}
 

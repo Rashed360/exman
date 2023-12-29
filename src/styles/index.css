@@ -8,21 +8,48 @@
 	padding-bottom: 20px;
 }
 .card {
-	padding: 10px 15px;
+	position: relative;
+	overflow: hidden;
 	border-radius: 15px;
 	background: var(--shade5);
+}
+.card::before {
+	position: absolute;
+	content: '';
+	width: 40px;
+	height: 40px;
+	bottom: 0;
 }
 .card .card__title {
 	font-size: 24px;
 }
-.card.activity {
+.card.card-main {
+	padding: 10px 15px;
+}
+.card.card-main::before {
+	left: 0;
+	background-color: rgba(255, 255, 255, 0.5);
+	clip-path: polygon(0 0, 0 100%, 100% 100%);
+}
+.card.card-activity {
+	border: 1px solid var(--shade2);
+}
+.card.card-activity::before {
+	right: 0;
+	clip-path: polygon(100% 0%, 100% 100%, 0% 100%);
+}
+.card.card-activity .card__body {
 	padding: 15px 20px;
 	display: flex;
 	gap: 15px;
 	justify-content: space-between;
-	border: 1px solid var(--shade2);
+}
+.card.card-activity .card__extra {
+	padding: 0 20px;
+	background-color: #333438;
 }
 .card__desc {
+	font-size: 1.25rem;
 }
 .card h1 {
 	text-align: right;
@@ -39,22 +66,31 @@
 .card--nutral {
 	background: var(--normal);
 }
-.activity.card--positive_line {
+.card-activity.card--positive_line {
 	border: 1px solid var(--accent);
 }
-.activity.card--negative_line {
+.card-activity.card--positive_line::before {
+	background-color: rgba(100, 244, 172, 0.5);
+}
+.card-activity.card--negative_line {
 	border: 1px solid var(--danger);
 }
-.activity.card--nutral_line {
+.card-activity.card--negative_line::before {
+	background-color: rgba(237, 165, 165, 0.5);
+}
+.card-activity.card--nutral_line {
 	border: 1px solid var(--normal);
 }
-.activity.card--positive_line h1 {
+.card-activity.card--nutral_line::before {
+	background-color: rgba(110, 177, 255, 0.5);
+}
+.card-activity.card--positive_line h1 {
 	color: var(--accent);
 }
-.activity.card--negative_line h1 {
+.card-activity.card--negative_line h1 {
 	color: var(--danger);
 }
-.activity.card--nutral_line h1 {
+.card-activity.card--nutral_line h1 {
 	color: var(--normal);
 }
 
