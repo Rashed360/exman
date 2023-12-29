@@ -1,1 +1,1 @@
-EX-MAN (Expense Manager) is a [Next.js](https://nextjs.org/) project targeted for mobile users.
+EX-MAN (Expense Manager) is a [Next.js](https://nextjs.org/) project targeted for mobile users to track their daily expenses and generate reports. It also provides features to plan expenses ahead of time and shows expense and income charts!
